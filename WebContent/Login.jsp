@@ -7,15 +7,17 @@
 <%@page import="java.io.PrintWriter"%>
 <%
 	PrintWriter write = response.getWriter();
+	String Email = "";
+	Email = request.getParameter(com.constants.UIConstants.loginEmail);
 	String success = "";
-	success = request.getParameter("success");
+	success = request.getParameter(com.constants.UIConstants.loginSucess);
 	String error = "";
 	if(success != null){
 	if(success.equals("false")){
 		error = "Sorry!! details you have entered is incorrect";
 	}
 	if(success.equals("true")){
-		response.sendRedirect("https://localhost:8080/User_Management_POC/home.jsp");
+		response.sendRedirect("http://localhost:8080/User_Management_POC/Home.jsp");
 		request.getSession();
 		System.out.println(session.getAttribute("name"));
 	}
@@ -35,7 +37,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in</title>
+  <title>Techbees | Home</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -45,16 +47,17 @@
   <link rel="stylesheet" href="./css/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./css/adminlte.min.css">
+   <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="../../index2.html"><b>Techbees</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Sign in </p>
 
       <form action="loginServlet" method="post">
         <div class="input-group mb-3">
@@ -73,15 +76,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block" id="submitbtn">Sign In</button>
@@ -89,23 +83,20 @@
           <!-- /.col -->
         </div>
       </form>
+      
+      <% 
+      	if(Email != null){
+      		out.println("<h6 style='margin-left: 10px;'>Your Email is : " + Email + "</h6>");
+      	}
+      %>
 
-      <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
       <!-- /.social-auth-links -->
 
-      <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+      <p class="mb-1" style="margin-left:10px;">
+        <a href="forgot.jsp">forgot Username</a>
       </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+      <p class="mb-0" style="margin-left:10px; margin-bottom: 10px;">
+        <a href="register.jsp" class="text-center">Create New Account</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -128,8 +119,6 @@
 	function checkInput(){
 		passInput = document.getElementById("pass").value;
 		emailInput = document.getElementById("email").value;
-		console.log(emailInput)
-		console.log(passInput)
 		if(!emailInput || !passInput){
 			loginBtn.disabled = true;
 			

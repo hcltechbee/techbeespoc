@@ -23,10 +23,8 @@ import com.mysql.cj.Session;
 public class loginServlet extends HttpServlet {    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String email = request.getParameter("Email");
-			String password = request.getParameter("Password");
-			System.out.println(email);
-			System.out.println(password);
+			String email = request.getParameter(com.constants.UIConstants.loginEmail);
+			String password = request.getParameter(com.constants.UIConstants.loginPassword);
 			dbConnector dbcon = new dbConnector();
 			Connection con = dbcon.con;
 			Statement stmt = con.createStatement();
@@ -40,15 +38,14 @@ public class loginServlet extends HttpServlet {
 				userPassword = rs.getString(2);
 				userName = rs.getString(3);
 				isAdmin = rs.getBoolean(4);
-				System.out.println(userEmail + "  and  " + userPassword);
 			if(userPassword.equals(password)){
 				success = "true";
 				System.out.println("login success");
 				response.sendRedirect("http://localhost:8080/User_Management_POC/Login.jsp?success=" + success);
 				HttpSession session = request.getSession();	
-				session.setAttribute("name", userName);
-				session.setAttribute("isAdmin", isAdmin);
-				session.setAttribute("LoggedIn", true);
+				session.setAttribute(com.constants.UIConstants.sessionName, userName);
+				session.setAttribute(com.constants.UIConstants.sessionIsAdmin, isAdmin);
+				session.setAttribute(com.constants.UIConstants.sessionLoggedIn, true);
 			}
 			else{
 				success = "false";

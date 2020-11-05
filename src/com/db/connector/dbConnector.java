@@ -10,7 +10,7 @@ public class dbConnector {
 	public dbConnector() throws Exception
     {
     Class.forName("com.mysql.jdbc.Driver");
-    con = DriverManager.getConnection("jdbc:mysql://localhost:3309/users", "root", "123456");
+    con = DriverManager.getConnection(com.constants.dbConstants.connectionUrl, com.constants.dbConstants.connectionUsername, com.constants.dbConstants.connectionPassword);
     System.out.println("connection made");
     }
     }

@@ -28,7 +28,7 @@ public class forgetServlet extends HttpServlet {
 		String Email;
 		if(rs.next()){
 			Email = rs.getString(1);
-			response.sendRedirect("http://localhost:8080/User_Management_POC/Login.jsp?Email=" + Email);
+			response.sendRedirect(com.constants.URLConstants.loginEmailUrl + Email);
 		}
 		else{
 			System.out.println(mobile_number);

@@ -19,7 +19,7 @@ public class logoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute(com.constants.UIConstants.sessionName) != null){
 			session.invalidate();
-			response.sendRedirect("http://localhost:8080/User_Management_POC/Login.jsp");
+			response.sendRedirect(com.constants.URLConstants.loginPageUrl);
 		}
 	}
 

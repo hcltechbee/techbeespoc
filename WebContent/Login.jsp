@@ -4,6 +4,7 @@
     Author     : DEVIL
 --%>
 
+<%@page import="com.constants.URLConstants"%>
 <%@page import="java.io.PrintWriter"%>
 <%
 	PrintWriter write = response.getWriter();
@@ -17,7 +18,7 @@
 		error = "Sorry!! details you have entered is incorrect";
 	}
 	if(success.equals("true")){
-		response.sendRedirect("http://localhost:8080/User_Management_POC/Home.jsp");
+		response.sendRedirect(URLConstants.homePgaeUrl);
 		request.getSession();
 		System.out.println(session.getAttribute("name"));
 	}
@@ -134,158 +135,3 @@
 </body>
 </html>
 
-<!-- <!DOCTYPE html> -->
-<!-- <html lang="en"> -->
-<!-- <head> -->
-<!-- 	<title>Login V1</title> -->
-<!-- 	<meta charset="UTF-8"> -->
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1"> -->
-
-<!-- <!--===============================================================================================--> 
-<!-- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
-<!-- <!--===============================================================================================-->	
-<!-- 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/> -->
-<!-- <!--===============================================================================================--> 
-<!-- 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> -->
-<!-- <!--===============================================================================================--> 
-<!-- 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
-<!-- <!--===============================================================================================--> 
-<!-- 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> -->
-<!-- <!--===============================================================================================-->	
-<!-- 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css"> -->
-<!-- <!--===============================================================================================--> 
-<!-- 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> -->
-<!-- <!--===============================================================================================--> 
-<!-- 	<link rel="stylesheet" type="text/css" href="css/util.css"> -->
-<!-- 	<link rel="stylesheet" type="text/css" href="css/main.css"> -->
-<!-- <!--===============================================================================================--> 
-<!-- </head> -->
-<!-- <body> -->
-	
-<!-- 	<div class="limiter"> -->
-<!-- 		<div class="container-login100"> -->
-<!-- 			<div class="wrap-login100"> -->
-<!-- 				<div class="login100-pic js-tilt" data-tilt> -->
-<!-- 					<img src="images/img-01.png" alt="IMG"> -->
-<!-- 				</div> -->
-
-<!-- 				<form class="login100-form validate-form" action="loginServlet" method="POST"> -->
-<!-- 					<span class="login100-form-title"> -->
-<!-- 						Member Login -->
-<!-- 					</span> -->
-
-<!-- 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz"> -->
-<!-- 						<input class="input100" type="email" name="Email" placeholder="Email"> -->
-<!-- 						<span class="focus-input100"></span> -->
-<!-- 						<span class="symbol-input100"> -->
-<!-- 							<i class="fa fa-envelope" aria-hidden="true"></i> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="wrap-input100 validate-input" data-validate = "Password is required"> -->
-<!-- 						<input class="input100" type="password" name="Password" placeholder="Password"> -->
-<!-- 						<span class="focus-input100"></span> -->
-<!-- 						<span class="symbol-input100"> -->
-<!-- 							<i class="fa fa-lock" aria-hidden="true"></i> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-<%-- 					<% if(success != null) --%>
-<!-- { -->
-<!-- // 						if(success.equals("username_incorrect")) -->
-<!-- // 						{ -->
-<!-- // 							out.println("<p class='alert alert-danger'> <strong>sorry!!</strong> The username you have entered is incorrect </p>"); -->
-<!-- // 						} -->
-<!-- // 					if(success.equals("false")) -->
-<!-- // 					{ -->
-<!-- // 						out.println("<p class='alert alert-danger'> <strong>sorry!!</strong> The password you have entered is incorrect</p>"); -->
-<!-- // 					} -->
-<!-- // 					} -->
-<%-- 					%> --%>
-					
-<!-- 					<div class="container-login100-form-btn"> -->
-<!-- 						<button class="login100-form-btn"> -->
-<!-- 							Login -->
-<!-- 						</button> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="text-center p-t-12"> -->
-<!-- 						<span class="txt1"> -->
-<!-- 							Forgot -->
-<!-- 						</span> -->
-<!-- 						<button class="link"  type="button" data-toggle="modal" data-target="#forgotPassModal"> -->
-<!-- 							email/ -->
-<!-- 						</button> -->
-<!-- 						<button class="link"  type="button" data-toggle="modal" data-target="#forgotPassModal"> -->
-<!-- 							Password? -->
-<!-- 						</button> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="text-center p-t-136"> -->
-<!-- 						<a class="txt2" href="#"> -->
-<!-- 							Create your Account -->
-<!-- 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i> -->
-<!-- 						</a> -->
-<!-- 					</div> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-	
-	
-
-	
-<!-- <!--===============================================================================================-->	 
-<%-- 	<script src="${pageContext.request.contextPath}/vendor/jquery/jquery-3.2.1.min.js"></script> --%>
-<!-- <!--===============================================================================================--> 
-<%-- 	<script src="${pageContext.request.contextPath}/vendor/bootstrap/js/popper.js"></script> --%>
-<%-- 	<script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.min.js"></script> --%>
-<!-- <!--===============================================================================================--> 
-<%-- 	<script src="${pageContext.request.contextPath}/vendor/select2/select2.min.js"></script> --%>
-<!-- <!--===============================================================================================--> 
-<%-- 	<script src="${pageContext.request.contextPath}/vendor/tilt/tilt.jquery.min.js"></script> --%>
-<!-- 	<script > -->
-<!-- // 		$('.js-tilt').tilt({ -->
-<!-- // 			scale: 1.1 -->
-<!-- // 		}) -->
-<!-- 	</script> -->
-<!-- <!--===============================================================================================--> 
-<!-- 	<script src="js/main.js"></script> -->
-
-
-
-<!-- <!-- Modal --> 
-<!-- <div class="modal fade" id="forgotPassModal" tabindex="-1" aria-labelledby="forgotPassModa" aria-hidden="true"> -->
-<!--   <div class="modal-dialog"> -->
-<!--     <div class="modal-content"> -->
-<!--       <div class="modal-header"> -->
-<!--         <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5> -->
-<!--         <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!--           <span aria-hidden="true">&times;</span> -->
-<!--         </button> -->
-<!--       </div> -->
-<!--       <div class="modal-body"> -->
-<!--       <form action = "forgotPassServlet" method="post"> -->
-<!--         <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz"> -->
-<!-- 						<input class="input100" type="email" name="Email" placeholder="Email"> -->
-<!-- 						<span class="focus-input100"></span> -->
-<!-- 						<span class="symbol-input100"> -->
-<!-- 							<i class="fa fa-envelope" aria-hidden="true"></i> -->
-<!-- 						</span> -->
-<!-- 		</div> -->
-<!-- 		<div class="container-login100-form-btn"> -->
-<!-- 						<button class="login100-form-btn"> -->
-<!-- 							Find Password -->
-<!-- 						</button> -->
-<!-- 		</div>  -->
-<!-- 		</form> -->
-<!--       </div> -->
-<!--       <div class="modal-footer"> -->
-<!--         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<!-- </body> -->
-
-<!-- <!-- Button trigger modal --> 
-<!-- </html> -->

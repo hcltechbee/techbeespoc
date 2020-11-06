@@ -4,6 +4,7 @@
     Author     : DEVIL
 --%>
 
+<%@page import="com.constants.UIConstants"%>
 <%@page import="com.constants.URLConstants"%>
 <%@page import="java.io.PrintWriter"%>
 <%
@@ -11,21 +12,11 @@
 	String Email = "";
 	Email = request.getParameter(com.constants.UIConstants.loginEmail);
 	String success = "";
-	success = request.getParameter(com.constants.UIConstants.loginSucess);
+	success = request.getParameter(com.constants.UIConstants.loginSuccess);
 	String error = "";
 	if(success != null){
-	if(success.equals("false")){
-		error = "Sorry!! details you have entered is incorrect";
-	}
 	if(success.equals("true")){
 		response.sendRedirect(URLConstants.homePgaeUrl);
-		request.getSession();
-		System.out.println(session.getAttribute("name"));
-	}
-	else if(success.equals("username_incorrect")){
-		System.out.println(success);	}
-	else{
-		System.out.println(success);
 	}
 	}
 	
@@ -78,7 +69,7 @@
           </div>
         </div>
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-12" style="text-align:center;">
             <button type="submit" class="btn btn-primary btn-block" id="submitbtn">Sign In</button>
           </div>
           <!-- /.col -->
@@ -86,17 +77,27 @@
       </form>
       
       <% 
+      out.println("<div style='text-align:center'>");
       	if(Email != null){
-      		out.println("<h6 style='margin-left: 10px;'>Your Email is : " + Email + "</h6>");
+      		out.println("<h6>Your Email is : " + Email + "</h6>");
       	}
+      	else if(success != null){
+    	  if(com.constants.UIConstants.loginSuccess.equals("false")){
+    		out.println("<h6 style='color:red;'>Sorry!! You Have Entered An Incorrect Password.</h6>");
+    	  }
+    	  else if(success.equals(com.constants.UIConstants.loginUsernameIncorrect)){
+    		  out.println("<h6 style='color:red;'>Sorry!! User with this Email doesn't exist.</h6>");  
+    	  }
+    	}
+      out.println("</div>");
       %>
 
       <!-- /.social-auth-links -->
 
-      <p class="mb-1" style="margin-left:10px;">
+      <p class="mb-1" style="margin: 0 auto;">
         <a href="forgot.jsp">forgot Username</a>
       </p>
-      <p class="mb-0" style="margin-left:10px; margin-bottom: 10px;">
+      <p class="mb-0" style="margin: 0 auto; margin-bottom: 10px;">
         <a href="register.jsp" class="text-center">Create New Account</a>
       </p>
     </div>

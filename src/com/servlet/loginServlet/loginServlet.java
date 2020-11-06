@@ -41,7 +41,6 @@ public class loginServlet extends HttpServlet {
 				lastName = rs.getString(5);
 			if(userPassword.equals(password)){
 				success = "true";
-				System.out.println("login success");
 				response.sendRedirect(com.constants.URLConstants.loginSucessUrl + success);
 				HttpSession session = request.getSession();	
 				session.setAttribute(com.constants.UIConstants.sessionName, firstName+" "+lastName);	

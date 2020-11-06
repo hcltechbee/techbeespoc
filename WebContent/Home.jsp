@@ -20,6 +20,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  text-align:center;
 }
 </style>
 </head>
@@ -197,10 +198,7 @@
 	
 
   <footer class="main-footer footer">
-    <div class="float-right d-none d-sm-block" style="margin-right:10px">
-      <b>Version</b> 3.1.0-pre
-    </div>
-    <strong>Copyright &copy; 2020</strong> All rights reserved.
+	   <strong>Copyright &copy; 2020</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->

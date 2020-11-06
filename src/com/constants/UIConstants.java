@@ -5,7 +5,8 @@ public class UIConstants {
 	//Login UI Fields
 	public static final String loginEmail = "Email";
 	public static final String loginPassword = "Password";
-	public static final String loginSucess = "success";
+	public static final String loginSuccess = "success";
+	public static final String loginUsernameIncorrect = "username_incorrect";
 	
 	//forget page UI Fields
 	public static final String forgetNumber = "mobile_number";

@@ -98,7 +98,7 @@
         <a href="forgot.jsp">forgot Username</a>
       </p>
       <p class="mb-0" style="margin: 0 auto; margin-bottom: 10px;">
-        <a href="register.jsp" class="text-center">Create New Account</a>
+        <a href="Registration_Form.jsp" class="text-center">Create New Account</a>
       </p>
     </div>
     <!-- /.login-card-body -->

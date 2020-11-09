@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.db.connector.dbConnector;
-import com.mysql.cj.Session;
+import com.classes.users.UsersDataBase;
+import com.constants.QueryConstants;
+
+
 
 /**
  * Servlet implementation class loginServlet
@@ -25,10 +27,9 @@ public class loginServlet extends HttpServlet {
 		try {
 			String email = request.getParameter(com.constants.UIConstants.loginEmail);
 			String password = request.getParameter(com.constants.UIConstants.loginPassword);
-			dbConnector dbcon = new dbConnector();
-			Connection con = dbcon.con;
+			Connection con = UsersDataBase.getConnection();
 			Statement stmt = con.createStatement();
-			String query = "SELECT Email_Id, Password, First_Name, isAdmin, Last_Name FROM users.userslogin where `Email_Id` = '" + email + "'"; 
+			String query =  QueryConstants.CHECKEMAIL+ email + "'"; 
 			ResultSet rs = stmt.executeQuery(query);
 			String userEmail, userPassword, userName, lastName, firstName;
 			Boolean isAdmin;

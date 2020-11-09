@@ -82,11 +82,11 @@
       		out.println("<h6>Your Email is : " + Email + "</h6>");
       	}
       	else if(success != null){
-    	  if(com.constants.UIConstants.loginSuccess.equals("false")){
-    		out.println("<h6 style='color:red;'>Sorry!! You Have Entered An Incorrect Password.</h6>");
+    	  if(success.equals("false")){
+    		out.println("<h6 style='color:red;'>Sorry!! You have entered an Incorrect password.</h6>");
     	  }
     	  else if(success.equals(com.constants.UIConstants.loginUsernameIncorrect)){
-    		  out.println("<h6 style='color:red;'>Sorry!! User with this Email doesn't exist.</h6>");  
+    		  out.println("<h6 style='color:red;'>Sorry!! User with this email doesn't exist.</h6>");  
     	  }
     	}
       out.println("</div>");
@@ -95,10 +95,10 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1" style="margin: 0 auto;">
-        <a href="forgot.jsp">forgot Username</a>
+        <a href="forgot.jsp">Forgot Username</a>
       </p>
       <p class="mb-0" style="margin: 0 auto; margin-bottom: 10px;">
-        <a href="Registration_Form.jsp" class="text-center">Create New Account</a>
+        <a href="Registeration_Form.html" class="text-center">Create New Account</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -135,4 +135,3 @@
 
 </body>
 </html>
-

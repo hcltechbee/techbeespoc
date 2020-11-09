@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>User_Management_POC</display-name>
+  <servlet>
+ 	<servlet-name>delete</servlet-name>
+ 	<servlet-class>com.servlet.users.DeleteServlet</servlet-class>
+ </servlet>
+ 
+ <servlet-mapping>
+ 	<servlet-name>delete</servlet-name>
+ 	<url-pattern>/DeleteServlet</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet>
+ 	<servlet-name>searching</servlet-name>
+ 	<servlet-class>com.servlet.users.FilterCheck</servlet-class>
+ </servlet>
+ 
+ <servlet-mapping>
+ 	<servlet-name>searching</servlet-name>
+ 	<url-pattern>/FilterCheck</url-pattern>
+ </servlet-mapping>
+
+  <servlet>
+      <servlet-name>Creation</servlet-name>
+      <servlet-class>Connection.Connections</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+      <servlet-name>Creation</servlet-name>
+      <url-pattern>/REGISTER</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>Login.jsp</welcome-file>
     <welcome-file>Login.jsp</welcome-file>

@@ -76,7 +76,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="Registeration_Form.html" class="nav-link">
               <i class="nav-icon fa fa-user"></i>
               <p>
                 Add User
@@ -84,14 +84,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../kanban.html" class="nav-link">
+            <a href="DeleteUsingSearch.jsp" class="nav-link">
               <i class="nav-icon  fas fa-user-minus"></i>
               <p>
                 Delete User
               </p>
             </a>
             <li class="nav-item">
-              <a href="../kanban.html" class="nav-link">
+              <a href="UpdateUser.jsp" class="nav-link">
                 <i class="nav-icon  fas fa-pen-alt"></i>
                 <p>
                   Update User
@@ -217,23 +217,6 @@
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
-
-<script>
-	deletes = document.getElementsByClassName('delete')
-	Array.from(deletes).forEach((element)=>{
-  	element.addEventListener('click', (e)=>{
-    sno = e.target.id.substr(1,)
-    console.log(sno);
-    if(confirm("do you want to delete this")){
-      console.log('yes')
-      window.location = 'http://localhost:8080/User_Management_POC/Home.jsp?delete='+sno;
-    }
-    else(
-      console.log('no')
-    )
-  })
-})
-</script>
 
 </body>
 </html>

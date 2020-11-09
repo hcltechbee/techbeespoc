@@ -2,12 +2,18 @@ package com.classes.users;
 
 public class User {
 	private int User_id;  
-	private String First_name,Last_Name,Email_Id,Country;
+	private String First_name,Last_Name,Email_Id,Country,Mobile_No;
 	public int getUser_id() {
 		return User_id;
 	}
 	public void setUser_id(int user_id) {
 		User_id = user_id;
+	}
+	public String getMobile_No() {
+		return Mobile_No;
+	}
+	public void setMobile_No(String mobile_No) {
+		Mobile_No = mobile_No;
 	}
 	public String getFirst_name() {
 		return First_name;
@@ -34,4 +40,4 @@ public class User {
 		Country = country;
 	}
 
-}
+}  

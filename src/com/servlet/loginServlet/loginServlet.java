@@ -31,7 +31,8 @@ public class loginServlet extends HttpServlet {
 			Statement stmt = con.createStatement();
 			String query =  QueryConstants.CHECKEMAIL+ email + "'"; 
 			ResultSet rs = stmt.executeQuery(query);
-			String userEmail, userPassword, userName, lastName, firstName;
+			String userEmail, userPassword, userName, lastName, firstName, userId;
+			
 			Boolean isAdmin;
 			String success = "false";
 			if(rs.next()){
@@ -40,11 +41,13 @@ public class loginServlet extends HttpServlet {
 				firstName = rs.getString(3);
 				isAdmin = rs.getBoolean(4);
 				lastName = rs.getString(5);
+				userId=rs.getString(6);
 			if(userPassword.equals(password)){
 				success = "true";
 				response.sendRedirect(com.constants.URLConstants.loginSucessUrl + success);
 				HttpSession session = request.getSession();	
 				session.setAttribute(com.constants.UIConstants.sessionName, firstName+" "+lastName);	
+				session.setAttribute(com.constants.UIConstants.sessionUser_id, userId);
 				session.setAttribute(com.constants.UIConstants.sessionIsAdmin, isAdmin);
 				session.setAttribute(com.constants.UIConstants.sessionLoggedIn, true);
 			}

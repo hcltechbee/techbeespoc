@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.db.connector.dbConnector;
+import com.classes.users.UsersDataBase;
+import com.constants.QueryConstants;
+
 
 /**
  * Servlet implementation class forgetPassServlet
@@ -21,14 +23,13 @@ public class forgetServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mobile_number = request.getParameter(com.constants.UIConstants.forgetNumber);
 		try{
-		dbConnector dbcon = new dbConnector();
-		Connection con = dbConnector.con;
+		Connection con = UsersDataBase.getConnection();
 		Statement statement = con.createStatement();
-		ResultSet rs = statement.executeQuery("SELECT Email_Id FROM users.userslogin where `Mobile_Number` = '" + mobile_number + "'");
+		ResultSet rs = statement.executeQuery(QueryConstants.CHECKMOBILE+ mobile_number + "'");
 		String Email;
 		if(rs.next()){
 			Email = rs.getString(1);
-			response.sendRedirect(com.constants.URLConstants.loginEmailUrl + Email);
+			response.sendRedirect(com.constants.URLConstants.loginEmailUrl+ Email);
 		}
 		else{
 			System.out.println(mobile_number);

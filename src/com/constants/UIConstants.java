@@ -2,7 +2,6 @@ package com.constants;
 
 public class UIConstants {
 	
-	//Login UI Fields
 	public static final String loginEmail = "Email";
 	public static final String loginPassword = "Password";
 	public static final String loginSuccess = "success";
@@ -15,8 +14,8 @@ public class UIConstants {
 	public static final String sessionName  = "name";
 	public static final String sessionIsAdmin = "isAdmin";
 	public static final String sessionLoggedIn  = "LoggedIn";
+
 	
-	
-	
+	public static final String DELETEUSINGSEARCH  = "DeleteUsingSearch.jsp";
 	
 }

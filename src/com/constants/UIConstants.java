@@ -14,6 +14,7 @@ public class UIConstants {
 	public static final String sessionName  = "name";
 	public static final String sessionIsAdmin = "isAdmin";
 	public static final String sessionLoggedIn  = "LoggedIn";
+	public static final String sessionUser_id="ID";
 	
 	public static final String FIRSTNAME  = "First_Name";
 	public static final String LASTNAME  = "Last_Name";

@@ -11,7 +11,7 @@
   
   
   <!-- Theme style -->
-    <link rel="stylesheet" href="css/adminlte.min.css">
+  <link rel="stylesheet" href="adminlte.min.css">
   <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -216,8 +216,8 @@
     
 <div class="container">
   <div class="row">
-    <div style="text-align:center;">
-      <a href="DeleteUsingSearch.jsp" class="btn btn-primary float-right">Back</a>
+    <div class="col-12 text-center" >
+      <a href="DeleteUsingSearch.jsp" class="btn btn-primary">Back</a>
     </div>
     </div>
   </div>
@@ -251,14 +251,6 @@
 <script src="js/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="js/toastr.min.js"></script>
-<!-- AdminLTE App -->
-<script src="js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="js/demo.js"></script>
-<!-- jQuery -->
-<script src="js/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src=".js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->

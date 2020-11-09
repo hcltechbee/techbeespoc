@@ -55,16 +55,15 @@
 
 <body class="hold-transition register-page">
 
-	<div class="register-box text-center"
-		style="width: 25rem;margin: 0 auto; float: none; margin-bottom: 50px;margin-top: 50px; ">
+	<div class="register-box text-center" style="width: 25rem;margin: 0 auto; float: none; margin-bottom: 50px;margin-top: 50px; ">
 		<div class="card card-outline card-primary">
 			<div class="card-header text-center">
 				<a href="../../index2.html" class="h1"><b>TECH</b>BEE</a>
 			</div>
 			<div class="card-body required">
-				<p class="login-box-msg">Register a new membership</p>
+				<p class="login-box-msg">Create a new Account</p>
 
-				<form action="REGISTER">
+				<form action="REGISTER" method="POST">
 					<div class="input-group mb-3">
 						<input type="text" class="form-control " name="First_Name" placeholder="First name"
 							pattern="[a-zA-Z ]{2,30}" title="Only alphabets and space allowed." required>
@@ -193,10 +192,10 @@
 						</div>
 						<div class="row">
 							<div class="col-6">
-								<div class="icheck-primary ">
+								<div class="icheck-primary text-center ">
 
 									<input type="checkbox" id="agreeTerms" name="terms" value="agree"
-										data-toggle="modal" data-target="#terms">
+										data-toggle="modal" data-target="#terms" >
 									<label for="agreeTerms">
 										I agree to the terms
 									</label>
@@ -241,13 +240,13 @@
 								</div>
 							</div>
 
-							<div class="col-6 text-center">
-								<button type="submit" class="btn btn-primary">Register</button>
-							</div>
+							
 						</div>
 					</div>
+				<div class="text-center">
+								<button type="submit" class="btn btn-primary">Register</button>
+							</div>
 				</form>
-
 
 				<br>
 				<a href="Login.jsp" class="text-center">I already have a membership</a>
@@ -327,9 +326,10 @@
 		}
 	}
 	function matchPassword() {
-		var pw1 = document.getElementById("pwd");
-		var pw2 = document.getElementById("conf_pwd");
-		if (pw1 != pw2) {
+		var pw1 = document.getElementById("pwd").value;
+		var pw2 = document.getElementById("conf_pwd").value;
+		var result = pw1.localeCompare(pw2);
+		if (result!==0) {
 			alert("Passwords did not match");
 		} else {
 			alert("Password created successfully");

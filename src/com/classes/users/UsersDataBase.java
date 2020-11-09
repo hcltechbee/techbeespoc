@@ -13,7 +13,7 @@ import com.constants.URLConstants;
 public class UsersDataBase {
 	private final static Logger LOGGER =Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	//-----------------------------------------------------------------THIS PART IS FOR CREATING CONNECTION WITH EMPLOYEES---------/
+	/*-----------------------------------------------------------------THIS PART IS FOR CREATING CONNECTION WITH EMPLOYEES---------*/
 	
 	public static Connection getConnection(){ 
         try{  
@@ -24,7 +24,7 @@ public class UsersDataBase {
         return  URLConstants.DATABASECONNECTION;
     }  
 	
-	//-----------------------------------------------------------------THIS PART IS FOR GEETING ALL EMPLOYEES--------------/
+	/*-----------------------------------------------------------------THIS PART IS FOR GEETING ALL EMPLOYEES--------------*/
 	
 	 public static List<User> getAllEmployees()	{  
 	        List<User> list=new ArrayList<>();  
@@ -39,7 +39,8 @@ public class UsersDataBase {
             currentUser.setUser_id(resultSet.getInt(1));  
             currentUser.setFirst_name(resultSet.getString(2));  
             currentUser.setLast_Name(resultSet.getString(3));  
-            currentUser.setEmail_Id(resultSet.getString(5));  
+            currentUser.setEmail_Id(resultSet.getString(5));
+            currentUser.setMobile_No(resultSet.getString(6));
             currentUser.setCountry(resultSet.getString(12));  
             list.add(currentUser);  
         }  
@@ -50,7 +51,7 @@ public class UsersDataBase {
     return list;  
 	 }  
 
-	 //-----------------------------------------------------------------THIS PART IS FOR DELETING USERS FROM DB--------------/
+	 /*-----------------------------------------------------------------THIS PART IS FOR DELETING USERS FROM DB--------------*/
 	 
 	  public static int deleteUser(int id){  
 	        int status=0; 
@@ -68,7 +69,7 @@ public class UsersDataBase {
 	
 	  
 	  
-	  //-----------------------------------------------------------------THIS PART IS FOR SEARCHING EMPLOYEES--------------/
+	  /*-----------------------------------------------------------------THIS PART IS FOR SEARCHING EMPLOYEES--------------*/
 	  
 	  
 		 public static List<User> getAllEmployees(String userName){  
@@ -84,7 +85,8 @@ public class UsersDataBase {
 	            currentUser.setUser_id(resultSet.getInt(1));  
 	            currentUser.setFirst_name(resultSet.getString(2));  
 	            currentUser.setLast_Name(resultSet.getString(3));  
-	            currentUser.setEmail_Id(resultSet.getString(5));  
+	            currentUser.setEmail_Id(resultSet.getString(5)); 
+	            currentUser.setMobile_No(resultSet.getString(6));
 	            currentUser.setCountry(resultSet.getString(12)); 
 	            filterList.add(currentUser);  
 	        }  

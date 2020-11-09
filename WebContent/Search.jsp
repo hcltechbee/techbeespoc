@@ -11,7 +11,7 @@
   
   
   <!-- Theme style -->
-  <link rel="stylesheet" href="adminlte.min.css">
+    <link rel="stylesheet" href="css/adminlte.min.css">
   <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -120,6 +120,25 @@
   </aside>
 
 
+              <%
+              String loginedUser="";
+              String loginedUserId="";
+              int CheckId=0;
+              if(session.getAttribute(com.constants.UIConstants.sessionName)!= null)
+              {
+              	loginedUser =(String)session.getAttribute(com.constants.UIConstants.sessionName);
+              	loginedUserId=(String)session.getAttribute(com.constants.UIConstants.sessionUser_id);
+              	CheckId=Integer.parseInt(loginedUserId);
+              	String userLogined[]=loginedUser.split(" ");
+              	//System.out.println(userLogined[0]);
+              	loginedUser=userLogined[0];
+              	//System.out.println(loginedUser);	
+              } 
+              //System.out.println(CheckId);
+              String userSearched=request.getParameter("NameToSearch");
+              String action;
+             
+              %>
         
           <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -137,14 +156,17 @@
              <%@page import="com.classes.users.UsersDataBase"%>
               <%@page import="com.classes.users.User"%>
               <%@page import="java.util.List"%>
-              
+            
+         
+                
               <%     String nameToFilter=request.getParameter("NameToSearch");
                       List<User> list = UsersDataBase.getAllEmployees(nameToFilter);
                       if (list.size()==0){
                     	  out.println("USER DOES NOT EXIST");
                       } else {
+           
               %>
-              
+                   
             <thead>
               <tr>
 <!--                 <th>UserID</th> -->
@@ -169,22 +191,23 @@
                 out.println("<td>"+currentUser.getEmail_Id()+"</td>");
                 out.println("<td>"+currentUser.getMobile_No()+"</td>");
                 out.println("<td>"+currentUser.getCountry()+"</td>");
+                if(loginedUser.equals(userSearched) && (CheckId==currentUser.getUser_id())) {
+              	  action="#modal-delete";
+                }
+                else{
+              	  action="#modal-info";
+                }
                 out.println("<td class=\"text-right py-0 align-middle\">");
                 out.println("<div class=\"btn-group btn-group-sm\">");
-                out.println("<a data-toggle=\"modal\" href=\"#modal-info\" ");  //   out.println(href='DeleteServlet?id="+e.getId()+"'")               
+                out.println("<a data-toggle=\"modal\" href="+action+" ");  //   out.println(href='DeleteServlet?id="+e.getId()+"'")               
                 out.println("class=\"btn btn-danger\" >");
                 out.println("<i class=\"fas fa-trash\"></i></a>");
                 //out.println("<a href='DeleteServlet?id="+e.getId()+"' class="btn btn-danger"><i class="fas fa-trash"></i></a>");
               out.println("</td>");
+              out.println("</tr>");
              %>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-      
-        <div class="modal fade" id="modal-info">
+                         
+                              <div class="modal fade" id="modal-info">
         <div class="modal-dialog">
           <div class="modal-content bg-info">
             <div class="modal-header">
@@ -194,7 +217,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>PLEASE CONFIRM TO DELETE USER&hellip;</p>
+              <p>PLEASE CONFIRM TO DELETE USER</p>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>
@@ -210,9 +233,17 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
+             
+             
+            </tbody>          
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
     
    
-
     
 <div class="container">
   <div class="row">
@@ -224,6 +255,8 @@
 
 
 
+
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -231,7 +264,7 @@
   <!-- /.control-sidebar -->
 </div>
 
- </div>
+
 <!-- ./wrapper -->
 
 
@@ -251,6 +284,14 @@
 <script src="js/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="js/toastr.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="js/demo.js"></script>
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src=".js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -410,6 +451,29 @@
     });
   });
 </script>
+
+      
+       <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+          <div class="modal-content bg-info">
+            <div class="modal-header">
+              <h4 class="modal-title">USER LOGINED</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>LOGINED USER CAN NOT BE DELETED</p>
+            </div>
+             <div class="modal-footer">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 
 </body>
 </html>

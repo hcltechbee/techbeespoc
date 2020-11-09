@@ -122,7 +122,7 @@
     				<div class="row">
     						<div class="col-md-4">
     								<div class="form-group">
-    									<input type="text" name="NameToSearch" placeholder="ENTER FIRST NAME" class="form-control" required>
+    									<input type="text" name="NameToSearch" placeholder="ENTER FIRST NAME" class="form-control" required pattern="[A-Za-z]{3,}">
     										</div>
     										<br>	
     										<div class="form-group" style="text-align:center;">

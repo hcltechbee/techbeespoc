@@ -23,7 +23,7 @@
 
   <servlet>
       <servlet-name>Creation</servlet-name>
-      <servlet-class>Connection.Connections</servlet-class>
+      <servlet-class>com.connection.Connections</servlet-class>
   </servlet>
  
   <servlet-mapping>

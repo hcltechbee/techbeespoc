@@ -7,7 +7,7 @@
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	
+
 
 	<script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
 	<title>Registration Form</title>
@@ -49,13 +49,30 @@
 			left: -35px;
 			content: "✖";
 		}
+
+		.center {
+
+
+			margin: auto;
+
+
+			width: 60%;
+
+
+
+
+			padding: 10px;
+
+
+		}
 	</style>
 </head>
 
 
 <body class="hold-transition register-page">
 
-	<div class="register-box text-center" style="width: 25rem;margin: 0 auto; float: none; margin-bottom: 50px;margin-top: 50px; ">
+	<div class="register-box text-center"
+		style="width: 25rem;margin: 0 auto; float: none; margin-bottom: 50px;margin-top: 50px; ">
 		<div class="card card-outline card-primary">
 			<div class="card-header text-center">
 				<a href="../../index2.html" class="h1"><b>TECH</b>BEE</a>
@@ -108,151 +125,152 @@
 							</div>
 						</div>
 					</div>
-					<div>
-						<div class="input-group mb-3 ">
-							<div class="input-group-prepend">
-								<div class="input-group-text ">
-									<input type="radio" id="male" name="gender" value="1" required>
-									<label for="male" class="col-4"><i class="fa fa-male" aria-hidden="true"></i> Male
-									</label><br>
-									<input type="radio" id="female" name="gender" value="2">
-									<label for="female" class="col-4"><i class="fa fa-female" aria-hidden="true"></i>
-										Female
-									</label><br>
+					<div class="input-group mb-3 center">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" class="custom-control-input" id="male" name="gender" value="1" required>
+							<label class="custom-control-label" for="male"><i class="fa fa-male" aria-hidden="true"></i>
+								Male</label>
+						</div>
 
-								</div>
-							</div>
+						<!-- Default inline 2-->
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" class="custom-control-input" type="radio" id="female" name="gender"
+								value="2">
+							<label class="custom-control-label" for="female"><i class="fa fa-female"
+									aria-hidden="true"></i> Female</label>
 						</div>
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Address" name="Address">
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fa fa-address-card"></span>
-								</div>
-							</div>
-						</div>
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="City" name="City">
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fas fa-city"></span>
-								</div>
-							</div>
-						</div>
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Pin Code" name="Pin_Code" required>
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fa fa-university"></span>
-								</div>
-							</div>
-						</div>
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="State" name="State" required>
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fa fa-university"></span>
-								</div>
-							</div>
-						</div>
-						<div class="input-group mb-3">
-							<input type="text" name="Country" value="India" readonly="readonly" class="col-10" />
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fas fa-globe"></span>
-								</div>
-							</div>
-						</div>
-						<div class="input-group mb-3">
-							<input type="password" class="form-control" placeholder="Password" id="pwd" name="pwd"
-								pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-								title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-								required>
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fas fa-lock"></span>
-								</div>
-							</div>
-						</div>
-						<div id="message">
-							<h6>Password must contain the following:</h3>
-								<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-								<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-								<p id="number" class="invalid">A <b>number</b></p>
-								<p id="length" class="invalid">Minimum <b>8 characters</b></p>
-						</div>
-						<div class="input-group mb-3">
-							<input type="password" class="form-control" onblur="matchPassword()"
-								placeholder="Retype password" name="conf_pwd" id="conf_pwd" required>
-							<div class="input-group-append">
-								<div class="input-group-text">
-									<span class="fas fa-lock"></span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<div class="icheck-primary text-center ">
+					</div>
 
-									<input type="checkbox" id="agreeTerms" name="terms" value="agree"
-										data-toggle="modal" data-target="#terms" >
-									<label for="agreeTerms">
-										I agree to the terms
-									</label>
-									<!-- Modal -->
-									<div class="modal fade" id="terms" tabindex="-1" role="dialog"
-										aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="termsLabel">Terms and Conditions</h5>
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													The Intellectual Property disclosure will inform users that the
-													contents, logo and other visual media you created is your property
-													and is protected by copyright laws.
-													A Termination clause will inform that users' accounts on your
-													website and mobile app or users' access to your website and mobile
-													(if users can't have an account with you) can be terminated in case
-													of abuses or at your sole discretion.
-													A Governing Law will inform users which laws govern the agreement.
-													This should the country in which your company is headquartered or
-													the country from which you operate your website and mobile app.
-													A Links To Other Web Sites clause will inform users that you are not
-													responsible for any third party websites that you link to. This kind
-													of clause will generally inform users that they are responsible for
-													reading and agreeing (or disagreeing) with the Terms and Conditions
-													or Privacy Policies of these third parties.
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Address" name="Address">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fa fa-address-card"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="City" name="City">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-city"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Pin Code" name="Pin_Code" required>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fa fa-university"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="State" name="State" required>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fa fa-university"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="India" name="Country" readonly>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fa fa-university"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="password" class="form-control" placeholder="Password" id="pwd" name="pwd"
+							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+							title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+							required>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-lock"></span>
+							</div>
+						</div>
+					</div>
+					<div id="message">
+						<h6>Password must contain the following:</h3>
+							<p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+							<p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+							<p id="number" class="invalid">A <b>number</b></p>
+							<p id="length" class="invalid">Minimum <b>8 characters</b></p>
+					</div>
+					<div class="input-group mb-3">
+						<input type="password" class="form-control" onblur="matchPassword()"
+							placeholder="Retype password" name="conf_pwd" id="conf_pwd" required>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-lock"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="icheck-primary text-center ">
 
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">Close</button>
+								<input type="checkbox" id="agreeTerms" name="terms" value="agree" data-toggle="modal"
+									data-target="#terms">
+								<label for="agreeTerms">
+									I agree to the terms
+								</label>
+								<!-- Modal -->
+								<div class="modal fade" id="terms" tabindex="-1" role="dialog"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="termsLabel">Terms and Conditions</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												The Intellectual Property disclosure will inform users that the
+												contents, logo and other visual media you created is your property
+												and is protected by copyright laws.
+												A Termination clause will inform that users' accounts on your
+												website and mobile app or users' access to your website and mobile
+												(if users can't have an account with you) can be terminated in case
+												of abuses or at your sole discretion.
+												A Governing Law will inform users which laws govern the agreement.
+												This should the country in which your company is headquartered or
+												the country from which you operate your website and mobile app.
+												A Links To Other Web Sites clause will inform users that you are not
+												responsible for any third party websites that you link to. This kind
+												of clause will generally inform users that they are responsible for
+												reading and agreeing (or disagreeing) with the Terms and Conditions
+												or Privacy Policies of these third parties.
 
-												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary"
+													data-dismiss="modal">Close</button>
+
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-
-							
 						</div>
-					</div>
-				<div class="text-center">
-								<button type="submit" class="btn btn-primary">Register</button>
-							</div>
-				</form>
 
-				<br>
-				<a href="Login.jsp" class="text-center">I already have a membership</a>
+
+					</div>
 			</div>
-			<!-- /.form-box -->
-		</div><!-- /.card -->
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary">Register</button>
+			</div>
+			</form>
+
+			<br>
+			<a href="Login.jsp" class="text-center">I already have an account</a>
+		</div>
+		<!-- /.form-box -->
+	</div><!-- /.card -->
 	</div>
 	<!-- /.register-box -->
 	<!-- Optional JavaScript -->
@@ -329,7 +347,7 @@
 		var pw1 = document.getElementById("pwd").value;
 		var pw2 = document.getElementById("conf_pwd").value;
 		var result = pw1.localeCompare(pw2);
-		if (result!==0) {
+		if (result !== 0) {
 			alert("Passwords did not match");
 		} else {
 			alert("Password created successfully");

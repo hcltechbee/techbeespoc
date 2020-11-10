@@ -182,8 +182,15 @@
             <tbody>
               
               <%
+              String email="";
+              int id=0;
               for(User currentUser:list){  
-               
+            	  if(loginedUser.equals(userSearched) && (CheckId==currentUser.getUser_id())) {
+                  	  action="#modal-delete";
+                    }
+                    else{
+                  	  action="#modal-info";
+                    }
                 out.println("<tr>");
 //                 out.println("<td>"+currentUser.getUser_id()+"</td>");
                 out.println("<td>"+currentUser.getFirst_name()+"</td>");
@@ -191,23 +198,22 @@
                 out.println("<td>"+currentUser.getEmail_Id()+"</td>");
                 out.println("<td>"+currentUser.getMobile_No()+"</td>");
                 out.println("<td>"+currentUser.getCountry()+"</td>");
-                if(loginedUser.equals(userSearched) && (CheckId==currentUser.getUser_id())) {
-              	  action="#modal-delete";
-                }
-                else{
-              	  action="#modal-info";
-                }
                 out.println("<td class=\"text-right py-0 align-middle\">");
                 out.println("<div class=\"btn-group btn-group-sm\">");
-                out.println("<a data-toggle=\"modal\" href="+action+" ");  //   out.println(href='DeleteServlet?id="+e.getId()+"'")               
-                out.println("class=\"btn btn-danger\" >");
+                out.println("<a id='d"+currentUser.getUser_id()+"' data-toggle=\"modal\" href="+action+" ");  //   out.println(href='DeleteServlet?id="+currentUser.getUser_id()+"'")               
+                id=currentUser.getUser_id();
+                email=currentUser.getEmail_Id();
+                out.println("class=\"btn btn-danger delete\" >");
                 out.println("<i class=\"fas fa-trash\"></i></a>");
                 //out.println("<a href='DeleteServlet?id="+e.getId()+"' class="btn btn-danger"><i class="fas fa-trash"></i></a>");
               out.println("</td>");
               out.println("</tr>");
+              
+                      
              %>
                          
-                              <div class="modal fade" id="modal-info">
+ 
+        <div class="modal fade" id="modal-info">
         <div class="modal-dialog">
           <div class="modal-content bg-info">
             <div class="modal-header">
@@ -222,10 +228,12 @@
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>
               <% 
-          out.println("<button type=\"button\" onclick=\"window.location.href='DeleteServlet?id="+currentUser.getUser_id()+"';\" class=\"btn btn-outline-light\">YES</button>");
-              }
+              //System.out.println(currentUser.getUser_id()+"  "+currentUser.getEmail_Id());
+              System.out.println(id+" "+email);
+            out.println("<button id='confirm' type=\"button\" class=\"btn btn-outline-light confirmDelete\">YES</button>");
+                      }  }
               %> 
-              <% } %>
+              
             </div>
           </div>
           <!-- /.modal-content -->
@@ -234,13 +242,13 @@
       </div>
       <!-- /.modal -->
              
-             
             </tbody>          
           </table>
         </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+
 
     
    
@@ -451,8 +459,21 @@
     });
   });
 </script>
-
-      
+<script>
+var sno=0;
+deletes = document.getElementsByClassName('delete')
+  Array.from(deletes).forEach((element)=>{
+    element.addEventListener('click', (e)=>{
+     sno = e.target.id.substr(1,)
+     console.log(e.target.id)
+  		var confirmDelete=document.getElementById('confirm');    
+console.log(sno);
+confirmDelete.addEventListener('click', (e)=>{
+	window.location='DeleteServlet?id='+sno;
+     })
+    })
+  })
+  </script>
        <div class="modal fade" id="modal-delete">
         <div class="modal-dialog">
           <div class="modal-content bg-info">

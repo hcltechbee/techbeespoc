@@ -26,7 +26,7 @@ public class Connections extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 
-public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
 	long max = 1000000000; 
     long min = 1000000; 
@@ -55,22 +55,21 @@ String pwd =request.getParameter(com.constants.UIConstants.PWD);
 //String c_pwd =request.getParameter("conf_pwd");
 
 String query = com.constants.QueryConstants.INSERTQUERY+ rand + ","+
-" ' "+ first_name +"',"+
+" TRIM ('"+ first_name +"'),"+
 
-" ' "+ last_name +"',"+
+" TRIM ('"+ last_name +"'),"+
 "1,"+
-" ' "+ email_id +"',"+
+" TRIM ('"+ email_id +"'),"+
 mob_number +","+
 gender+","+
-" ' "+ address +"',"+
-" ' "+ city +"',"+
+" TRIM ('"+ address +"'),"+
+" TRIM ('"+ city +"'),"+
 p_code +","+
-" ' "+ state +"',"+
+" TRIM ('"+ state +"'),"+
 "'India',"+
-" ' "+ pwd +"',"+
+" TRIM ('"+ pwd +"'),"+
 "'"+ DOB+ "')"+
-";"
-		;
+";"	;
 try{
 	
     Class.forName(com.constants.URLConstants.DATABASEDRIVER);  

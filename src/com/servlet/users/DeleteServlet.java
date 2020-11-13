@@ -13,8 +13,8 @@ import com.classes.users.UsersDataBase;
 public class DeleteServlet extends HttpServlet {  
     protected void doGet(HttpServletRequest request, HttpServletResponse response)   
              throws ServletException, IOException {  
-        String idOfUser=request.getParameter("id");  
-        int identificationOfUser=Integer.parseInt(idOfUser);  
+        String userId =request.getParameter("id");  
+        int identificationOfUser=Integer.parseInt(userId);  
         UsersDataBase.deleteUser(identificationOfUser);  
         response.sendRedirect(UIConstants.DELETEUSINGSEARCH);  
     }  

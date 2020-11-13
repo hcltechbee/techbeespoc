@@ -3,6 +3,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +50,8 @@ String 	last_name =request.getParameter(com.constants.UIConstants.LASTNAME);
 String email_id =request.getParameter(com.constants.UIConstants.EMAILID);
 String mob_number =request.getParameter(com.constants.UIConstants.MOBILENUMBER);
 String DOB =request.getParameter(com.constants.UIConstants.DATEOFBIRTH);
+
+
 String gender =request.getParameter(com.constants.UIConstants.GENDER);
 String address =request.getParameter(com.constants.UIConstants.ADDRESS);
 String city =request.getParameter(com.constants.UIConstants.CITY);
@@ -54,30 +60,40 @@ String state =request.getParameter(com.constants.UIConstants.STATE);
 String pwd =request.getParameter(com.constants.UIConstants.PWD);
 //String c_pwd =request.getParameter("conf_pwd");
 
-String query = com.constants.QueryConstants.INSERTQUERY+ rand + ","+
-" TRIM ('"+ first_name +"'),"+
-
-" TRIM ('"+ last_name +"'),"+
-"1,"+
-" TRIM ('"+ email_id +"'),"+
+String query =com.constants.QueryConstants.UDINSQUERY+ rand + ","+
+"'"+ first_name +"',"+
+"'"+ last_name +"',"+
 mob_number +","+
 gender+","+
-" TRIM ('"+ address +"'),"+
-" TRIM ('"+ city +"'),"+
-p_code +","+
-" TRIM ('"+ state +"'),"+
+"'"+ address +"',"+
+"'"+ city +"',"+
+"'"+ p_code+"',"+
+"'"+ state +"',"+
 "'India',"+
-" TRIM ('"+ pwd +"'),"+
-"'"+ DOB+ "')"+
-";"	;
+"'"+DOB+ "')"+
+";";
+String query2 = com.constants.QueryConstants.ULINSQUERY+ rand + ","+
+"'"+ first_name +"',"+
+"'"+ last_name +"',"+
+"'"+ email_id +"',"+
+"'"+ pwd +"',"+
+"1)"+
+";";
 try{
 	
     Class.forName(com.constants.URLConstants.DATABASEDRIVER);  
     Connection connection=DriverManager.getConnection(com.constants.URLConstants.DATABASEURL,com.constants.URLConstants.DATABASEUSERNAME,com.constants.URLConstants.DATABASEPASSWORD);
+    PreparedStatement stmt1=connection.prepareStatement(query2);   
+
+    int j=stmt1.executeUpdate();  
+    System.out.println(j+" records inserted in userlogin");
+    
     PreparedStatement stmt=connection.prepareStatement(query);   
 
     int i=stmt.executeUpdate();  
-    System.out.println(i+" records inserted");  
+    System.out.println(i+" records inserted in userdetails");  
+    
+  
       
     connection.close();  
     response.sendRedirect("Login.jsp");  

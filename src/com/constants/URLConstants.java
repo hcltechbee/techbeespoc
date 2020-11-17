@@ -3,12 +3,12 @@ package com.constants;
 import java.sql.Connection;
 
 public class URLConstants {
-	public final static String loginSucessUrl = "Login.jsp?success=";
-	public final static String loginEmailUrl = "Login.jsp?Email=";
-	public final static String loginPageUrl = "Login.jsp";
-	public static final String homePgaeUrl = "Home.jsp";
-	public static final String registeration = "Registeration_Form.html";
-	public static final String updateUser = "UpdateUser.jsp";
+	public final static String LOGIN_SUCCESS_URL = "Login.jsp?success=";
+	public final static String LOGIN_EMAIL_URL = "Login.jsp?Email=";
+	public final static String LOGIN_PAGE_URL = "Login.jsp";
+	public static final String HOME_PAGE_URL = "Home.jsp";
+	public static final String REGISTERATION = "Registeration_Form.html";
+	public static final String UPDATE_USER = "UpdateUser.jsp";
 	
 	
 	public static final String DATABASEURL="jdbc:mysql://localhost:3306/POC_work";

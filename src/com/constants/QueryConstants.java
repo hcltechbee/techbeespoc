@@ -9,5 +9,8 @@ public class QueryConstants {
 	public static final String INSERTQUERY = "INSERT INTO `POC_work`.`userslogin` (`User_Id`,`First_Name`,`Last_Name`,`isAdmin`,"+
 			"`Email_Id`,`Mobile_Number`,`Gender`,`Address`,`City`,`Pin_Code`,`State`,`Country`,`Password`,"+
 			"`DateOfBirth`) VALUES ( ";
+        public static final String INSERTFEED = "insert into keshavdb.userfeeds(USER_ID,FEED_TEXT,PHOTO) values(?,?,?)";
+	public static final String SEARCHFEED = "select * from keshavdb.userfeeds where DATE_CREATED > ? ";
+	public static final String SEARCHFEEDIMAGE = "select * from keshavdb.userfeeds where Feed_Id=?";
 
 }

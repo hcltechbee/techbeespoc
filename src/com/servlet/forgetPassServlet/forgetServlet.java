@@ -21,14 +21,14 @@ import com.constants.QueryConstants;
 @WebServlet("/forgetServlet")
 public class forgetServlet extends HttpServlet {	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mobile_number = request.getParameter(com.constants.UIConstants.forgetNumber);
+		String forget_mobile_number = request.getParameter(com.constants.UIConstants.forgetNumber);
 		try{
 		Connection con = UsersDataBase.getConnection();
 		Statement statement = con.createStatement();
-		ResultSet rs = statement.executeQuery(QueryConstants.CHECKMOBILE + mobile_number + "'");
+		ResultSet check_mobile_number = statement.executeQuery(QueryConstants.CHECKMOBILE + forget_mobile_number + "'");
 		String Email;
 		if(rs.next()){
-			Email = rs.getString(1);
+			Email = check_mobile_number.getString(1);
 			response.sendRedirect(com.constants.URLConstants.loginEmailUrl+ Email);
 		}
 		else{

@@ -1,24 +1,24 @@
-package com.connection;
+package ssd;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
-/**
- * 
- */
+
+import com.journaldev.log.LoggingExample;
 
 /**
  * @author root
  *
  */
 public class Connections extends HttpServlet{
-/**
-	 * 
-	 */
+	  static Logger logger = Logger.getLogger(Connections.class.getName());
 	private static final long serialVersionUID = 1L;
 
 
@@ -45,35 +45,23 @@ String p_code =request.getParameter(com.constants.UIConstants.PINCODE);
 String state =request.getParameter(com.constants.UIConstants.STATE);
 String pwd =request.getParameter(com.constants.UIConstants.PWD);
 //String c_pwd =request.getParameter("conf_pwd");
-String query =com.constants.QueryConstants.UDINSQUERY+ rand + ","+
-"'"+ first_name +"',"+
-"'"+ last_name +"',"+
-mob_number +","+
-gender+","+
-"'"+ address +"',"+
-"'"+ city +"',"+
-"'"+ p_code+"',"+
-"'"+ state +"',"+
-"'India',"+
-"'"+DOB+ "')"+
-";";
-String query2 = com.constants.QueryConstants.ULINSQUERY+ rand + ","+
-"'"+ first_name +"',"+
-"'"+ last_name +"',"+
-"'"+ email_id +"',"+
-"'"+ pwd +"',"+
-"1)"+
-";";
+String query = com.constants.QueryConstants.INSERTQUERY + rand + "," + " TRIM ('" + first_name + "')," +
+
+			" TRIM ('" + last_name + "')," + "1," + " TRIM ('" + email_id + "')," + mob_number + "," + gender + ","
+			+ " TRIM ('" + address + "')," + " TRIM ('" + city + "')," + p_code + "," + " TRIM ('" + state + "'),"
+			+ "'India'," + " TRIM ('" + pwd + "')," + "'" + DOB + "')" + ";";
+
 try{
 	
     Class.forName(com.constants.URLConstants.DATABASEDRIVER);  
     Connection connection=DriverManager.getConnection(com.constants.URLConstants.DATABASEURL,com.constants.URLConstants.DATABASEUSERNAME,com.constants.URLConstants.DATABASEPASSWORD);
     PreparedStatement stmt1=connection.prepareStatement(query2); 
     int j=stmt1.executeUpdate();  
+	
     System.out.println(j+" records inserted in userlogin");    
     PreparedStatement stmt=connection.prepareStatement(query);   
-    int i=stmt.executeUpdate();  
-    System.out.println(i+" records inserted in userdetails");  
+    int i=stmt.executeUpdate();   
+    LOGGER.log(Level.INFO, i+"records inserted in userdetails");
     connection.close();  
     response.sendRedirect("Login.jsp");  
 

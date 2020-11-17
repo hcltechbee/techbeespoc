@@ -1,3 +1,12 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="com.mysql.jdbc.Blob"%>
+<%@page import="com.classes.users.UsersDataBase"%>
+<%@page import="com.classes.users.Feed"%>
+<%@page import="java.util.List"%>
 <%@page import="com.constants.UIConstants"%>
 <%@page import="com.constants.URLConstants"%>
 <%@page import="java.sql.ResultSet"%>
@@ -107,97 +116,137 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-<!--               <li class="breadcrumb-item active">Home </li> -->
-            </ol>
-          </div>
+ 
+      
+    <div class="card card-info">
+        <div class="card-header">
+          <h3 class="card-title"><b>FEED</b></h3>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+      </div>
+ 
     
-<!--         <div class="card card-info"> -->
-<!--         <div class="card-header"> -->
-<!--           <h3 class="card-title"><b>USERS</b></h3> -->
-<!--         </div> -->
-<!--             <a href="FilterUser.jsp" class="btn btn-info" style="background-color:grey;">FILTER USER : <i class="fas fa-filter"></i></a> -->
-<!--         <div class="card-body p-0"> -->
-<!--           <table class="table"> -->
-<!--             <thead> -->
-<!--               <tr> -->
-<!--                 <th>UserID</th> -->
-<!--                 <th>Name</th> -->
-<!--                 <th>Email-ID</th> -->
-<!--                 <th>Country</th> -->
-                
-<!--                 <th></th> -->
-<!--               </tr> -->
-<!--             </thead> -->
-<!--             <tbody> -->
-        
-       
-<%--               <%@page import="com.db.connector.dbConnector"%> --%>
-<%--               <%@page import="java.util.List"%> --%>
-              
 
-<!-- //               		  dbConnector dbCon = new dbConnector(); -->
-<!-- //                       Connection connection = dbCon.con; -->
-<!-- //                       Statement stmt = connection.createStatement(); -->
-<!-- //                       ResultSet rs = stmt.executeQuery("SELECT User_Id, First_name, Email_Id, Country FROM users.userslogin"); -->
-                      
-<%--               %> --%>
-              
-              
-<%--               <% --%>
-<!-- //               while(rs.next()){   -->
-<!-- //                 out.println("<tr>"); -->
-<!-- //                 out.println("<td>"+rs.getInt(1)+"</td>"); -->
-<!-- //                 out.println("<td>"+rs.getString(2)+"</td>"); -->
-<!-- //                 out.println("<td>"+rs.getString(3)+"</td>"); -->
-<!-- //                 out.println("<td>"+rs.getString(4)+"</td>"); -->
-<!-- //                 out.println("<td class=\"text-right py-0 align-middle\">"); -->
-<!-- //                 out.println("<div class=\"btn-group btn-group-sm\">"); -->
-<!-- //                 out.println("<button method='get' id='d"+rs.getInt(1) +"'"); -->
-<!-- //                 out.println("class=\"delete btn btn-danger\">"); -->
-<!-- //                 out.println("<i class=\"fas fa-trash\"></i></a>"); -->
-<!-- //                 //out.println("<a href='DeleteServlet?id="+e.getId()+"' class="btn btn-danger"><i class="fas fa-trash"></i></a>"); -->
-<!-- //                 out.println("</div>"); -->
-<!-- //               out.println("</td>"); -->
-<!-- //               } -->
 
+	  <!-- Content Wrapper. Contains page content -->
+  <div class="container" >
+    <!-- Content Header (Page header) -->
+
+
+    <!-- Main content -->
+    <section class="container-fluid" style="text-align:center">
+      <div class="container-fluid">
+        <div class="row">
+        <form action="InsertFeed">
+          <div class="col-12">
+            <!-- Default box -->
+            <div class="card card-primary" style='margin-bottom:80px'>
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+<!--                 <input type="text" name="messageByUser" placeholder="Type Your Text Here"> -->
+                <textarea rows="3" cols="140" name="messageByUser" placeholder="Type Your Text Here" required></textarea>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer justify-content-between">
+              <input type="file" id="img" name="image" value="PHOTO" required accept="image/*" onchange="return fileValidation()" >
+              <input type="submit" class="btn btn-primary" value="POST">
+              </div>
               
-<%-- /<--               <% --%> 	 
-<!-- // 			String deleteId = ""; -->
-<!-- // 		deleteId = request.getParameter("delete"); -->
-<!-- // 		if(deleteId!=null){ -->
-<!-- // 			System.out.println(deleteId); -->
-<!-- // 			stmt.executeUpdate("DELETE FROM users.userslogin where `User_Id` = "+deleteId); -->
-		
-<!-- // 	} -->
-<!--  --> 
+              <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+            
+            <%@page import="com.classes.users.UsersDataBase"%>
+            <%@page import="com.classes.users.Feed"%>
+            <%@page import="java.util.List"%>
+            <%@page import="com.constants.UIConstants"%>
+            <%@page import="com.constants.URLConstants"%>
+            <%@page import="java.sql.ResultSet"%>
+            <%@page import="java.sql.Statement"%>
+            <%@page import="java.sql.Connection"%>
+            
+            <% 
+            String loginedUser="";
+            String loginedUserId="";
+            int CheckId=0;
+            if(session.getAttribute(com.constants.UIConstants.sessionName)!= null)
+            {
+            	loginedUser =(String)session.getAttribute(com.constants.UIConstants.sessionName);
+            	loginedUserId=(String)session.getAttribute(com.constants.UIConstants.sessionUser_id);
+            	CheckId=Integer.parseInt(loginedUserId);
+            	String userLogined[]=loginedUser.split(" ");
+            	//System.out.println(userLogined[0]);
+            	loginedUser=userLogined[0];
+            	//System.out.println(loginedUser);	
+            } 
+            LocalDate date = LocalDate.now();  
+            LocalDate timeToFilter = date.minusDays(5);
+            String dateToSearch = ""+timeToFilter; 
+            System.out.println(dateToSearch);
+            
+            List<Feed> feedList = UsersDataBase.getAllFeeds(dateToSearch);
+                   
+                   for(Feed currentUser:feedList)
+                   {
+                	   
+            %>
+            
+             <div class="card card-primary" style='margin-bottom:60px'>
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
               
-<!--             </tbody> -->
-<!--           </table> -->
-<!--         </div> -->
-<!--         /.card-body -->
-<!--       </div> -->
-<!--       /.card -->
+              <div style="text-align:left;">
+              <%
+               
+              out.println(currentUser.getFeed_Text());
+              Blob blob = currentUser.getPhoto();
+              //Thread.sleep(1000);
+              
+              %>
+              </div>
+<div class="col-12">
+    <div class="thumbnail">
+        <img src="FeedImage?id=<%=currentUser.getFeed_Id()%>" style="width:50%; height:50%;">
+    </div>
+ </div>
+  
+<%-- <img src="FeedImage?id=<%=currentUser.getFeed_Id()%>" /> --%>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer justify-content-between">
+              lower
+              </div>
+              
+              <!-- /.card-footer-->
+            </div>
+            
+          </div>
+   <%
+                   }
+   %>
    
-<!--   <div class="row"> -->
-<!--     <div class="col-12"> -->
-<!--       <a href="#" class="btn btn-secondary">Cancel</a> -->
-<!--       <input type="submit" value="Save Changes" class="btn btn-success float-right"> -->
-<!--     </div> -->
-<!--   </div> -->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+ 
 
-	
-
-  <footer class="main-footer footer">
+  <footer class="main-footer footer" style='z-index:10'>
 	   <strong>Copyright &copy; 2020</strong> All rights reserved.
   </footer>
 
@@ -217,6 +266,44 @@
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
+  <script language="javascript"> 
+  function fileValidation() { 
+      var fileInput =  
+          document.getElementById('img'); 
+        
+      var filePath = fileInput.value; 
+    
+      // Allowing file type 
+      var allowedExtensions =  
+              /(\.jpg|\.png)$/i; 
+        
+      if (!allowedExtensions.exec(filePath)) { 
+          alert('Invalid file type only .png and .jpg allowed'); 
+          fileInput.value = ''; 
+          return false; 
+      }  
+      
+      const fi = document.getElementById('img'); 
+      // Check if any file is selected. 
+      if (fi.files.length > 0) { 
+          for (const i = 0; i <= fi.files.length - 1; i++) { 
+
+              const fsize = fi.files.item(i).size; 
+              const file = Math.round((fsize / 1024)); 
+              // The size of the file. 
+              if (file >= 2048) { 
+                  alert( 
+                    "File too Big, please select a file less than 2mb"); 
+                  fileInput.value = ''; 
+                  return false;
+              }
+          } 
+      } 
+        
+      
+  } 
+    </script> 
+
 
 </body>
 </html>

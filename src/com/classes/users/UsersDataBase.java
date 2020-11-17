@@ -97,4 +97,51 @@ public class UsersDataBase {
 
 		return filterList;
 	}
+	
+			 public static List<Feed> getAllFeeds(String date){  
+		        List<Feed> filterFeed=new ArrayList<>();  
+		       // userName="%"+userName+"%";
+		        
+		try{  
+			URLConstants.DATABASECONNECTION=UsersDataBase.getConnection();  
+	        PreparedStatement preparedStatement=URLConstants.DATABASECONNECTION.prepareStatement(QueryConstants.SEARCHFEED);  
+	        preparedStatement.setString(1,date); 
+	        ResultSet resultSet=preparedStatement.executeQuery();  
+	        while(resultSet.next()){  
+	            Feed currentUser=new Feed();  
+	           currentUser.setFeed_Text(resultSet.getString(2));
+	           currentUser.setPhoto((Blob) resultSet.getBlob(3));
+	           currentUser.setFeed_Id(resultSet.getInt(6));
+	            filterFeed.add(currentUser);  
+	        }  
+	        LOGGER.log(Level.INFO,"SEARCHED USER DISPLAYED");
+	        URLConstants.DATABASECONNECTION.close();  
+	    }catch(Exception exception){LOGGER.log(Level.WARNING,"EXCEPTION OCCURED  "+exception);}  
+	      
+	    return filterFeed;  
+	 } 
+		 
+		 
+		 public static List<Feed> getFeedImage(int id){  
+		        List<Feed> filterFeed=new ArrayList<>();  
+		     
+		        
+		try{  
+			URLConstants.DATABASECONNECTION=UsersDataBase.getConnection();  
+	        PreparedStatement preparedStatement=URLConstants.DATABASECONNECTION.prepareStatement(QueryConstants.SEARCHFEEDIMAGE);  
+	        preparedStatement.setInt(1,id); 
+	        ResultSet resultSet=preparedStatement.executeQuery();  
+	        while(resultSet.next()){  
+	            Feed currentUser=new Feed();  
+	           currentUser.setFeed_Text(resultSet.getString(2));
+	           currentUser.setPhoto((Blob) resultSet.getBlob(3));
+	           currentUser.setFeed_Id(resultSet.getInt(6));
+	            filterFeed.add(currentUser);  
+	        }  
+	        LOGGER.log(Level.INFO,"IMAGE DISPLAYED");
+	        URLConstants.DATABASECONNECTION.close();  
+	    }catch(Exception exception){LOGGER.log(Level.WARNING,"EXCEPTION OCCURED  "+exception);}  
+	      
+	    return filterFeed;  
+	 }
 }

@@ -17,9 +17,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
+	
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TechBee | Home</title>
+  <!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src=".js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="js/demo.js"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="css/adminlte.min.css">
   <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
@@ -31,6 +41,14 @@
   width: 100%;
   text-align:center;
 }
+
+img {
+    max-width: 300px;
+    vertical-align: middle;
+    border-style: none;
+    height: 300px;
+}
+
 </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -118,7 +136,7 @@
     <!-- Content Header (Page header) -->
  
       
-    <div class="card card-info">
+    <div class="card card-primary">
         <div class="card-header">
           <h3 class="card-title"><b>FEED</b></h3>
         </div>
@@ -154,7 +172,9 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer justify-content-between">
-              <input type="file" id="img" name="image" value="PHOTO" required accept="image/*" onchange="return fileValidation()" >
+              <input type="file" id="img" class="btn btn-primary" name="image" value="PHOTO" required accept="image/*" onchange="return fileValidation()" style="overflow:hidden">
+              <br>
+              <br>
               <input type="submit" class="btn btn-primary" value="POST">
               </div>
               
@@ -219,15 +239,15 @@
               </div>
 <div class="col-12">
     <div class="thumbnail">
-        <img src="FeedImage?id=<%=currentUser.getFeed_Id()%>" style="width:50%; height:50%;">
+        <img src="FeedImage?id=<%=currentUser.getFeed_Id()%>">
     </div>
  </div>
   
 <%-- <img src="FeedImage?id=<%=currentUser.getFeed_Id()%>" /> --%>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer justify-content-between">
-              lower
+              <div class="card-footer">
+              
               </div>
               
               <!-- /.card-footer-->
@@ -258,14 +278,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="js/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src=".js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="js/demo.js"></script>
+
   <script language="javascript"> 
   function fileValidation() { 
       var fileInput =  
@@ -292,8 +305,14 @@
               const file = Math.round((fsize / 1024)); 
               // The size of the file. 
               if (file >= 2048) { 
-                  alert( 
-                    "File too Big, please select a file less than 2mb"); 
+            	 
+//             	  $(document).ready(function(){
+//             		  $('#modalFileSize').modal('show');
+//             		});
+
+            	  document.getElementById('img').style.borderColor = "red";
+              alert( 
+                    "File too Big, please select a file less than 2mb");     
                   fileInput.value = ''; 
                   return false;
               }
@@ -301,8 +320,42 @@
       } 
         
       
-  } 
+  }
+
+  
     </script> 
+    
+<!--  <script>   -->
+//   $(document).ready(function(){
+//     $("#img").click(function(){
+//       $("#modalFileSize").modal();
+//     });
+//   });
+<!-- </script> -->
+
+
+<div class="modal fade" id="modalFileSize">
+        <div class="modal-dialog">
+          <div class="modal-content bg-info">
+            <div class="modal-header">
+              <h4 class="modal-title">FILE SIZE</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>File too Big, please select a file less than 2mb</p>
+            </div>
+             <div class="modal-footer">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
 
 
 </body>

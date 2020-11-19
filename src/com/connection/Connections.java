@@ -1,40 +1,103 @@
-
+package com.connection;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigInteger;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
-import com.journaldev.log.LoggingExample;
+/**
+ * 
+ */
 
 /**
  * @author root
  *
  */
+ 
 public class Connections extends HttpServlet{
-	  static Logger logger = Logger.getLogger(Connections.class.getName());
+/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	
 
 public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
-    long max = 1000000000; 
-    long min = 1000000; 
-    long range = max - min + 1; 
-    long rand = 1;
-    // generate random numbers within 1 to 10 
-    for (int i = 0; i < 10; i++) { 
-        rand = (long)(Math.random() * range) + min;       
-    } 
+	Userslogin user1=new Userslogin();
+	Userdetail user_1 = new Userdetail();
+	  EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+	  EntityManager em=emf.createEntityManager();
+	  em.getTransaction().begin();   
+	  System.out.println(user1.getUser_Id());
+	  user1.setUser_Id(1000);
+	  System.out.println(user1.getUser_Id());
+	  user1.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
+	  user1.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
+	  user1.setEmailId(request.getParameter(com.constants.UIConstants.EMAILID));
+	  user1.setIsadmin((byte)1);
+	  user1.setPassword(request.getParameter(com.constants.UIConstants.PWD));
+	 
+	  em.persist(user1);  
+	  em.getTransaction().commit();
+	  System.out.println(" records inserted in userlogin");  
+	 // em.getTransaction().commit(); 
+	  
+
+	 
+	  
+	 
+	 EntityManager em1=emf.createEntityManager();
+	 em1.getTransaction().begin();
+	 System.out.println(user_1.getUserId());
+	 user_1.setUserId(1000);;
+	 System.out.println(user_1.getUserId());
+	 
+	  BigInteger mob;
+	  mob = new BigInteger(request.getParameter(com.constants.UIConstants.MOBILENUMBER));
+	  user_1.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
+	  user_1.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
+	  user_1.setMobileNumber(mob);
+	  System.out.println("hi 1 ");
+user_1.setGender(request.getParameter(com.constants.UIConstants.GENDER));
+user_1.setAddress(request.getParameter(com.constants.UIConstants.ADDRESS));
+user_1.setCity(request.getParameter(com.constants.UIConstants.CITY));
+user_1.setPincode(request.getParameter(com.constants.UIConstants.PINCODE));
+user_1.setState(request.getParameter(com.constants.UIConstants.STATE));
+user_1.setCountry("India");
+System.out.println("hi 2 ");
+Date date1;
+try {
+	date1 = new SimpleDateFormat("yyyy-mm-dd").parse(request.getParameter(com.constants.UIConstants.DATEOFBIRTH));
+	//Date sqldate = new Date(date1.getTime());
+	user_1.setDateOfBirth(date1);
+} catch (ParseException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} 
+System.out.println("hi 3");
+em1.persist(user_1);  
+System.out.println("hi 4 ");
+em1.getTransaction().commit(); 
+System.out.println(" records inserted in userdetails"); 
+response.sendRedirect("Login.jsp"); 
+
+      emf.close();
+     
+
+     
+     
+/*	  
 response.setContentType("text/html");	
-String 	first_name =request.getParameter(com.constants.UIConstants.FIRSTNAME);
-String 	last_name =request.getParameter(com.constants.UIConstants.LASTNAME);
+
 String email_id =request.getParameter(com.constants.UIConstants.EMAILID);
 String mob_number =request.getParameter(com.constants.UIConstants.MOBILENUMBER);
 String DOB =request.getParameter(com.constants.UIConstants.DATEOFBIRTH);
@@ -45,23 +108,35 @@ String p_code =request.getParameter(com.constants.UIConstants.PINCODE);
 String state =request.getParameter(com.constants.UIConstants.STATE);
 String pwd =request.getParameter(com.constants.UIConstants.PWD);
 //String c_pwd =request.getParameter("conf_pwd");
-String query = com.constants.QueryConstants.INSERTQUERY + rand + "," + " TRIM ('" + first_name + "')," +
-
-			" TRIM ('" + last_name + "')," + "1," + " TRIM ('" + email_id + "')," + mob_number + "," + gender + ","
-			+ " TRIM ('" + address + "')," + " TRIM ('" + city + "')," + p_code + "," + " TRIM ('" + state + "'),"
-			+ "'India'," + " TRIM ('" + pwd + "')," + "'" + DOB + "')" + ";";
-
+String query =com.constants.QueryConstants.UDINSQUERY+ rand + ","+
+"'"+ first_name +"',"+
+"'"+ last_name +"',"+
+mob_number +","+
+gender+","+
+"'"+ address +"',"+
+"'"+ city +"',"+
+"'"+ p_code+"',"+
+"'"+ state +"',"+
+"'India',"+
+"'"+DOB+ "')"+
+";";
+String query2 = com.constants.QueryConstants.ULINSQUERY+ rand + ","+
+"'"+ first_name +"',"+
+"'"+ last_name +"',"+
+"'"+ email_id +"',"+
+"'"+ pwd +"',"+
+"1)"+
+";";
 try{
 	
     Class.forName(com.constants.URLConstants.DATABASEDRIVER);  
     Connection connection=DriverManager.getConnection(com.constants.URLConstants.DATABASEURL,com.constants.URLConstants.DATABASEUSERNAME,com.constants.URLConstants.DATABASEPASSWORD);
     PreparedStatement stmt1=connection.prepareStatement(query2); 
     int j=stmt1.executeUpdate();  
-	
     System.out.println(j+" records inserted in userlogin");    
     PreparedStatement stmt=connection.prepareStatement(query);   
-    int i=stmt.executeUpdate();   
-    LOGGER.log(Level.INFO, i+"records inserted in userdetails");
+    int i=stmt.executeUpdate();  
+    System.out.println(i+" records inserted in userdetails");  
     connection.close();  
     response.sendRedirect("Login.jsp");  
 
@@ -77,6 +152,7 @@ catch (Exception e) {
 	   }
 	   
    }
+   */
 }
 
 

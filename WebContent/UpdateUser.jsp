@@ -1,15 +1,17 @@
+<!--<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TechBee | Update User</title>
+  <title>TechBee | Delete User</title>
 
   
   
   <!-- Theme style -->
-    <link rel="stylesheet" href="css/adminlte.min.css">
-  <script src="https://kit.fontawesome.com/550c1e8106.js" ></script>
+    <link rel="stylesheet" href="adminlte.min.css">
+  <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -25,11 +27,10 @@
         <a href="Home.jsp" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="mailTo:'abc@gmail.com'" class="nav-link">Contact</a>
+        <a href="mailto: abc@example.com" class="nav-link">Contact</a>
       </li>
     </ul>
-
-    <% 
+    <!--<% 
 	session = request.getSession(false);
     if (session.getAttribute("name") == null) {
         // No session present, you can create yourself
@@ -38,18 +39,19 @@
         // Already created.
         out.println("<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
     }
-    %>
+    %>--->
+
     </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <div class="card-header text-center">
-      <a href="Home.jsp" class="h1"><b style="color:blue">TECH</b>BEE</a>
+      <a href="Home.jsp" class="h1"><b style="color:blue;">TECH</b>BEE</a>
     </div>
     
       
-    
+    </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -93,10 +95,8 @@
                   Update User
                 </p>
               </a>
-            
-          
-          
-          
+   
+ 
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -107,149 +107,34 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Update User</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Update User</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+   
 
-    <!-- Main content -->
-    <section class="content" >
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">General Information</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control " name="Full_Name" placeholder="Full name" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user"></span>
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="email" class="form-control" name="Email_Id" placeholder="Email" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-envelope"></span>
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" name = "Mobile_Number" placeholder="Mobile Number" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-mobile"></span>
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="date" class="form-control" name="DOB">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-calendar-times"></span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input type="radio" id="male" name="gender" value="1">
-                    <label for="male"><i class="fa fa-male" aria-hidden="true"></i> Male </label><br>
-                    <input type="radio" id="female" name="gender" value="2">
-                    <label for="female"><i class="fa fa-female" aria-hidden="true"></i> Female
-                    </label><br>
-  
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Address" name="Address">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fa fa-address-card"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="City" name="City">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-city"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Pin Code" name="Pin_Code" required>
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fa fa-university"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="State" name="State" required>
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fa fa-university"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3">
-                <input type="text" name="Country" value="India" readonly="readonly" />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-rupee-sign"></span>
-                  </div>
-                </div>
-              </div>
-            
-              <div class="row">
-                <div class="col-12">
-                  <a href="#" class="btn btn-secondary">Cancel</a>
-                  <input type="submit" value="Save Changes" class="btn btn-success float-right">
-                </div>
-              </div>
-              </div>
-            </div>
-          </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
+    <div class="card card-info">
+        <div class="card-header">
+          <h3 class="card-title"><b>UPDATE USERS</b></h3>
         </div>
-        
+      </div>
       
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+      <div class="jumbotron">
+    	<form action="UpdateUserSearch.jsp" method="POST">
+    		
+    		<div class="container">
+    				<div class="row">
+    						<div class="col-md-4">
+    								<div class="form-group">
+    									<input type="text" name="NameToSearch" placeholder="ENTER FIRST NAME" class="form-control" required pattern="[A-Za-z]{3,}">
+    										</div>
+    										<br>	
+    										<div class="form-group" style="text-align:center;">
+    									<input type="submit" value="SEARCH" class="btn btn-primary" class="form-control" style="margin:0 auto;">
+									</div>    				
+    						</div>
+    				</div>
+    		</div>
+    	</form>
+    	</div>
+      <!-- /.card -->
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.1.0-pre
-    </div>
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">TechBee.io</a>.</strong> All rights reserved.
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -258,6 +143,13 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+ <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.1.0-pre
+    </div>
+    <strong>Copyright &copy; 2014-2020 <a href="#"> All rights reserved.
+  </footer>
 
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
@@ -275,5 +167,6 @@
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
+
 </body>
 </html>

@@ -10,13 +10,13 @@
 <%
 	PrintWriter write = response.getWriter();
 	String Email = "";
-	Email = request.getParameter(com.constants.UIConstants.loginEmail);
+	Email = request.getParameter(com.constants.UIConstants.LOGIN_EMAIL);
 	String success = "";
-	success = request.getParameter(com.constants.UIConstants.loginSuccess);
+	success = request.getParameter(com.constants.UIConstants.LOGIN_SUCCESS);
 	String error = "";
 	if(success != null){
 	if(success.equals("true")){
-		response.sendRedirect(URLConstants.homePgaeUrl);
+		response.sendRedirect(URLConstants.HOME_PAGE_URL);
 	}
 	}
 	
@@ -85,7 +85,7 @@
     	  if(success.equals("false")){
     		out.println("<h6 style='color:red;'>Sorry!! You have entered an Incorrect password.</h6>");
     	  }
-    	  else if(success.equals(com.constants.UIConstants.loginUsernameIncorrect)){
+    	  else if(success.equals(com.constants.UIConstants.LOGIN_USERNAME_INCORRECT)){
     		  out.println("<h6 style='color:red;'>Sorry!! User with this email doesn't exist.</h6>");  
     	  }
     	}

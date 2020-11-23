@@ -11,7 +11,7 @@
   
   <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.min.css">
-  <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/550c1e8106.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -34,7 +34,7 @@
 	session = request.getSession(false);
     if (session.getAttribute("name") == null) {
         // No session present, you can create yourself
-    	out.println("<a class='btn btn-primary' href='"+com.constants.URLConstants.loginPageUrl +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
+    	out.println("<a class='btn btn-primary' href='"+com.constants.URLConstants.LOGIN_PAGE_URL +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
     } else {
         // Already created.
         out.println("<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
@@ -59,7 +59,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         
         <div class="info">
-          <a href="#" class="d-block"><% if(session.getAttribute(com.constants.UIConstants.sessionName)!= null){out.println(session.getAttribute(com.constants.UIConstants.sessionName));} else response.sendRedirect("Login.jsp"); %></a>
+          <a href="#" class="d-block"><% if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null){out.println(session.getAttribute(com.constants.UIConstants.SESSION_NAME));} else response.sendRedirect("Login.jsp"); %></a>
         </div>
       </div>
 

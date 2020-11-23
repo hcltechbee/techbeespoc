@@ -1,7 +1,9 @@
 package com.classes.users;
 
 import java.util.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,7 @@ public class UsersDataBase {
 		return list;
 	}
 
+	
 	public static int deleteUser(int id) {
 		int status = 0;
 		try {
@@ -97,7 +100,28 @@ public class UsersDataBase {
 
 		return filterList;
 	}
-	
+	 public static List<User> UpdateAllEmployees(String userName){  
+	 	    List<User> filterList=new ArrayList<>();  
+	 	   // userName="%"+userName+"%";
+	 	try{  
+	 	URLConstants.DATABASECONNECTION=UsersDataBase.getConnection();  
+	 	PreparedStatement preparedStatement=URLConstants.DATABASECONNECTION.prepareStatement(QueryConstants.SEARCHUSER);  
+	 	preparedStatement.setString(1,userName); 
+	 	ResultSet resultSet=preparedStatement.executeQuery();  
+	 	while(resultSet.next()){  
+	 	    User currentUser=new User();  
+	 	    currentUser.setUser_id(resultSet.getInt(1));  
+	 	    currentUser.setFirst_name(resultSet.getString(2));  
+	 	    currentUser.setLast_Name(resultSet.getString(3));  
+	 	    currentUser.setEmail_Id(resultSet.getString(5)); 
+	 	    filterList.add(currentUser);  
+	 	}  
+	 	LOGGER.log(Level.INFO,"SEARCHED USER DISPLAYED");
+	 	URLConstants.DATABASECONNECTION.close();  
+	 	}catch(Exception exception){LOGGER.log(Level.WARNING,"EXCEPTION OCCURED  "+exception);}  
+
+	 	return filterList;  
+	 	} 
 			 public static List<Feed> getAllFeeds(String date){  
 		        List<Feed> filterFeed=new ArrayList<>();  
 		       // userName="%"+userName+"%";
@@ -144,4 +168,35 @@ public class UsersDataBase {
 	      
 	    return filterFeed;  
 	 }
+		  public static int InsertFeed(int id, String note, String myFile) throws FileNotFoundException{  
+	            int status=0; 
+	            
+	            System.out.println(id);
+	            System.out.println(note);
+	           // File userImage = new File(image);
+	           // System.out.println(userImage);
+	            File myImage=new File(myFile);
+	            
+	            FileInputStream userImage = new FileInputStream(myImage.getAbsoluteFile());
+	            //FileInputStream userImage = new FileInputStream("C:\\Users\\hppc\\Pictures\\Screenshots\\testImage.png");
+	               
+	            System.out.println(userImage);
+	            try{  
+	                URLConstants.DATABASECONNECTION=UsersDataBase.getConnection();  
+	                PreparedStatement preparedStatement=URLConstants.DATABASECONNECTION.prepareStatement(QueryConstants.INSERTFEED);  
+	               
+	                preparedStatement.setInt(1, id);
+	                preparedStatement.setString(2,note);
+	                preparedStatement.setBinaryStream(3, userImage);
+
+	 
+
+	                status=preparedStatement.executeUpdate(); 
+	                LOGGER.log(Level.INFO,"VALUES INSERTED");
+	                URLConstants.DATABASECONNECTION.close();  
+	            }catch(Exception exception){LOGGER.log(Level.WARNING,"EXCEPTION OCCURED  "+exception);}  
+	              
+	            return status;  
+	        }  
+	      
 }

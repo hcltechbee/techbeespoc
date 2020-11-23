@@ -25,8 +25,8 @@ import com.constants.QueryConstants;
 public class loginServlet extends HttpServlet {    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String email = request.getParameter(com.constants.UIConstants.loginEmail);
-			String password = request.getParameter(com.constants.UIConstants.loginPassword);
+			String email = request.getParameter(com.constants.UIConstants.LOGIN_EMAIL);
+			String password = request.getParameter(com.constants.UIConstants.LOGIN_PASSWORD);
 			Connection con = UsersDataBase.getConnection();
 			Statement stmt = con.createStatement();
 			String query =  QueryConstants.CHECKEMAIL+ email + "'"; 
@@ -44,22 +44,22 @@ public class loginServlet extends HttpServlet {
 				userId=rs.getString(6);
 			if(userPassword.equals(password)){
 				success = "true";
-				response.sendRedirect(com.constants.URLConstants.loginSucessUrl + success);
+				response.sendRedirect(com.constants.URLConstants.LOGIN_SUCCESS_URL + success);
 				HttpSession session = request.getSession();	
-				session.setAttribute(com.constants.UIConstants.sessionName, firstName+" "+lastName);	
-				session.setAttribute(com.constants.UIConstants.sessionUser_id, userId);
-				session.setAttribute(com.constants.UIConstants.sessionIsAdmin, isAdmin);
-				session.setAttribute(com.constants.UIConstants.sessionLoggedIn, true);
+				session.setAttribute(com.constants.UIConstants.SESSION_NAME, firstName+" "+lastName);	
+				session.setAttribute(com.constants.UIConstants.SESSION_ISADMIN, userId);
+				session.setAttribute(com.constants.UIConstants.SESSION_ISADMIN, isAdmin);
+				session.setAttribute(com.constants.UIConstants.SESSION_LOGGEDIN, true);
 			}
 			else{
 				success = "false";
 				System.out.println("sorry");
-				response.sendRedirect(com.constants.URLConstants.loginSucessUrl + success);
+				response.sendRedirect(com.constants.URLConstants.LOGIN_SUCCESS_URL + success);
 			}
 			}
 			else{
 				success="username_incorrect";
-				response.sendRedirect(com.constants.URLConstants.loginSucessUrl + success);
+				response.sendRedirect(com.constants.URLConstants.LOGIN_SUCCESS_URL + success);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

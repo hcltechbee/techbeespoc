@@ -21,15 +21,15 @@ import com.constants.QueryConstants;
 @WebServlet("/forgetServlet")
 public class forgetServlet extends HttpServlet {	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String forget_mobile_number = request.getParameter(com.constants.UIConstants.forgetNumber);
+		String forget_mobile_number = request.getParameter(com.constants.UIConstants.FORGET_NUMBER);
 		try{
 		Connection con = UsersDataBase.getConnection();
 		Statement statement = con.createStatement();
 		ResultSet check_mobile_number = statement.executeQuery(QueryConstants.CHECKMOBILE + forget_mobile_number + "'");
 		String Email;
-		if(rs.next()){
+		if(check_mobile_number.next()){
 			Email = check_mobile_number.getString(1);
-			response.sendRedirect(com.constants.URLConstants.loginEmailUrl+ Email);
+			response.sendRedirect(com.constants.URLConstants.LOGIN_EMAIL_URL+ Email);
 		}
 		else{
 			response.sendRedirect("forgot.jsp?error=mobile_number_invalid");

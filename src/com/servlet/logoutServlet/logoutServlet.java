@@ -17,9 +17,9 @@ import javax.servlet.http.HttpSession;
 public class logoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if(session.getAttribute(com.constants.UIConstants.sessionName) != null){
+		if(session.getAttribute(com.constants.UIConstants.SESSION_NAME) != null){
 			session.invalidate();
-			response.sendRedirect(com.constants.URLConstants.loginPageUrl);
+			response.sendRedirect(com.constants.URLConstants.LOGIN_PAGE_URL);
 		}
 	}
 

@@ -24,10 +24,10 @@ public class FeedServlet extends HttpServlet {
 		String loginedUser="";
         String loginedUserId="";
         int CheckId=0;
-        if(session.getAttribute(com.constants.UIConstants.sessionName)!= null)
+        if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null)
         {
-        	loginedUser =(String)session.getAttribute(com.constants.UIConstants.sessionName);
-        	loginedUserId=(String)session.getAttribute(com.constants.UIConstants.sessionUser_id);
+        	loginedUser =(String)session.getAttribute(com.constants.UIConstants.SESSION_NAME);
+        	loginedUserId=(String)session.getAttribute(com.constants.UIConstants.SESSION_USER_ID);
         	CheckId=Integer.parseInt(loginedUserId);
         	String userLogined[]=loginedUser.split(" ");
         	//System.out.println(userLogined[0]);
@@ -53,7 +53,7 @@ public class FeedServlet extends HttpServlet {
 		}
 		
 		else {
-		UsersDataBase.InsertFeed(CheckId, messageOfUser, imageOfUser);
+			UsersDataBase.InsertFeed(CheckId, messageOfUser, imageOfUser);
 		response.sendRedirect("Home.jsp");
 		}
 	

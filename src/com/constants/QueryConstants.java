@@ -13,4 +13,9 @@ public class QueryConstants {
 	public static final String SEARCHFEED = "select * from keshavdb.userfeeds where DATE_CREATED > ? ";
 	public static final String SEARCHFEEDIMAGE = "select * from keshavdb.userfeeds where Feed_Id=?";
 
+	public static final String DELETERMMAPQUERY = "UPDATE userslogin SET `RM_ID` = null WHERE `USER_ID` = ";
+	public static final String UPDATERMQUERY = "UPDATE userslogin SET `RM_ID` = '";
+
+	public static final String CHECKRMID = "SELECT * FROM userslogin WHERE USER_ID = ";
+	public static final String GETRMID = "SELECT RM_ID FROM userslogin WHERE USER_ID = '";
 }

@@ -21,8 +21,8 @@ public class Feed {
 	public Blob getPhoto() {
 		return Photo;
 	}
-	public void setPhoto(Blob photo) {
-		Photo = photo;
+	public void setPhoto(java.sql.Blob blob) {
+		Photo = (Blob) blob;
 	}
 	
 }

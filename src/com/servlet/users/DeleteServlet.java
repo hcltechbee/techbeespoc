@@ -16,6 +16,6 @@ public class DeleteServlet extends HttpServlet {
         String userId =request.getParameter("id");  
         int identificationOfUser=Integer.parseInt(userId);  
         UsersDataBase.deleteUser(identificationOfUser);  
-        response.sendRedirect(UIConstants.DELETEUSINGSEARCH);  
+        response.sendRedirect(UIConstants.DELETE_USING_SEARCH);  
     }  
 }  

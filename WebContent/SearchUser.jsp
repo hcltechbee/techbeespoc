@@ -40,16 +40,18 @@ header, section, footer {
 				<li class="nav-item d-none d-sm-inline-block"><a
 					href="mailto: abc@example.com" class="nav-link">Contact</a></li>
 			</ul>
-			<% 
-	session = request.getSession(false);
-    if (session.getAttribute("name") == null) {
-        // No session present, you can create yourself
-    	out.println("<a class='btn btn-primary' href='"+com.constants.URLConstants.loginPageUrl +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
-    } else {
-        // Already created.
-        out.println("<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
-    }
-    %>
+			<%
+				session = request.getSession(false);
+			if (session.getAttribute("name") == null) {
+				// No session present, you can create yourself
+				out.println("<a class='btn btn-primary' href='" + com.constants.URLConstants.loginPageUrl
+				+ "' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");
+			} else {
+				// Already created.
+				out.println(
+				"<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
+			}
+			%>
 
 
 
@@ -75,8 +77,11 @@ header, section, footer {
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
 					<div class="info">
-						<a href="#" class="d-block">
-							<% if(session.getAttribute(com.constants.UIConstants.sessionName)!= null){out.println(session.getAttribute(com.constants.UIConstants.sessionName));} %>
+						<a href="#" class="d-block"> <%
+ 	if (session.getAttribute(com.constants.UIConstants.sessionName) != null) {
+ 	out.println(session.getAttribute(com.constants.UIConstants.sessionName));
+ }
+ %>
 						</a>
 					</div>
 				</div>
@@ -104,7 +109,7 @@ header, section, footer {
 								<i class="nav-icon  fas fa-user-minus"></i>
 								<p>Search User</p>
 						</a>
-						<li class="nav-item"><a href="DeleteUsingSearch.jsp"
+						<li class="nav-item"><a href="SearchingUsingSearch.jsp"
 							class="nav-link"> <i class="nav-icon  fas fa-pen-alt"></i>
 								<p>Delete User</p>
 						</a>
@@ -138,7 +143,7 @@ header, section, footer {
 
 
 
-			<form name="searching" action="SearchDelete.jsp"
+			<form name="searching" action="Searching.jsp"
 				onsubmit="return validateForm()" method="POST">
 
 

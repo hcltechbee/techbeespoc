@@ -27,6 +27,7 @@ public class UsersDataBase {
 		}
 		return URLConstants.DATABASECONNECTION;
 	}
+	
 
 	public static List<User> getAllEmployees() {
 		List<User> list = new ArrayList<>();
@@ -54,7 +55,19 @@ public class UsersDataBase {
 
 		return list;
 	}
-
+//------------------------------------------------ employee--------------------------------------------------------------------------------------------------------------------- 
+             public static List<User> getAllEmployee(String FirstName, String LastName){  
+			 List<User> filterList=new ArrayList<>();  
+		try{  
+			URLConstants.DATABASECONNECTION=UsersDataBase.getConnection();  
+			
+	        filterList=UserDaoLayer.getAllSearchUser(FirstName,LastName);
+	        LOGGER.log(Level.INFO,"SEARCHED USER DISPLAYED");
+	        URLConstants.DATABASECONNECTION.close();  }
+	  catch(Exception exception){LOGGER.log(Level.WARNING,"EXCEPTION OCCURED  "+exception);}
+	    return filterList;  
+	 } 
+}
 	
 	public static int deleteUser(int id) {
 		int status = 0;
@@ -72,7 +85,7 @@ public class UsersDataBase {
 
 		return status;
 	}
-
+//------------------------------------------------------------------employees ----------------------------------------------------------------------------------------------------
 	public static List<User> getAllEmployees(String userName) {
 		List<User> filterList = new ArrayList<>();
 		// userName="%"+userName+"%";

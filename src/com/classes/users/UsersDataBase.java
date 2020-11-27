@@ -67,7 +67,7 @@ public class UsersDataBase {
 	  catch(Exception exception){LOGGER.log(Level.WARNING,"EXCEPTION OCCURED  "+exception);}
 	    return filterList;  
 	 } 
-}
+
 	
 	public static int deleteUser(int id) {
 		int status = 0;

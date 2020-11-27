@@ -52,7 +52,8 @@
     
       
     </a>
-
+ 
+	
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->

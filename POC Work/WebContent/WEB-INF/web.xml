@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>User_Management_POC</display-name>
+  <servlet>
+ 	<servlet-name>delete</servlet-name>
+ 	<servlet-class>com.servlet.users.DeleteServlet</servlet-class>
+ </servlet>
+ 
+ <servlet-mapping>
+ 	<servlet-name>delete</servlet-name>
+ 	<url-pattern>/DeleteServlet</url-pattern>
+ </servlet-mapping>
+ 
+  <servlet>
+ 	<servlet-name>searching</servlet-name>
+ 	<servlet-class>com.servlet.users.FilterCheck</servlet-class>
+ </servlet>
+ 
+ <servlet-mapping>
+ 	<servlet-name>searching</servlet-name>
+ 	<url-pattern>/FilterCheck</url-pattern>
+ </servlet-mapping>
+
+  <servlet>
+      <servlet-name>Creation</servlet-name>
+      <servlet-class>com.connection.Connections</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+      <servlet-name>Creation</servlet-name>
+      <url-pattern>/REGISTER</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+      <servlet-name>insertFeed</servlet-name>
+      <servlet-class>com.servlet.users.FeedServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+      <servlet-name>insertFeed</servlet-name>
+      <url-pattern>/InsertFeed</url-pattern>
+  </servlet-mapping>
+
+ 
+
+      <servlet>
+      <servlet-name>FeedImage</servlet-name>
+      <servlet-class>com.servlet.users.FeedImage</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+      <servlet-name>FeedImage</servlet-name>
+      <url-pattern>/FeedImage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>UPDATE</servlet-name>
+  	<servlet-class>com.connection.UpdateUserConnections</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UPDATE</servlet-name>
+  	<url-pattern>/UPDATE</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>Login.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

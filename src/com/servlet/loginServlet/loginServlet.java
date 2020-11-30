@@ -42,7 +42,9 @@ public class loginServlet extends HttpServlet {
 				isAdmin = rs.getBoolean(4);
 				lastName = rs.getString(5);
 				userId=rs.getString(6);
-			if(userPassword.equals(password)){
+				boolean matched = BCrypt.checkpw(password, userPassword);
+				System.out.println("Passwd matched : "+matched);
+			if(matched == true){
 				success = "true";
 				response.sendRedirect(com.constants.URLConstants.LOGIN_SUCCESS_URL + success);
 				HttpSession session = request.getSession();	

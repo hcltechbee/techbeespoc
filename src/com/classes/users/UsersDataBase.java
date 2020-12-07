@@ -211,5 +211,30 @@ public class UsersDataBase {
 	              
 	            return status;  
 	        }  
+			  public static List<User> getAllEmployeeFL(String userName, String lastname) {
+				List<User> filterList = new ArrayList<>();
+				try {
+					URLConstants.DATABASECONNECTION = UsersDataBase.getConnection();
+					PreparedStatement preparedStatement = URLConstants.DATABASECONNECTION
+							.prepareStatement(QueryConstants.SEARCHUSERS);
+					preparedStatement.setString(1, userName);
+					preparedStatement.setString(2, lastname);
+					ResultSet resultSet = preparedStatement.executeQuery();
+					Userdetail ud = new Userdetail();
+					while (resultSet.next()) {
+						User currentUser = new User();
+						currentUser.setUser_id(resultSet.getInt(1));
+						currentUser.setFirst_name(resultSet.getString(2));
+						currentUser.setLast_Name(resultSet.getString(3));
+						currentUser.setEmail_Id(resultSet.getString(4));
+						filterList.add(currentUser);
+					}
+					LOGGER.log(Level.INFO, "SEARCHED USER DISPLAYED");
+					URLConstants.DATABASECONNECTION.close();
+				} catch (Exception exception) {
+					LOGGER.log(Level.WARNING, "EXCEPTION OCCURED  " + exception);
+				}
+				return filterList;
+			}
 	      
 }

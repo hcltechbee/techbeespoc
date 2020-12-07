@@ -20,4 +20,6 @@ public class QueryConstants {
 	public static final String GETRMID = "SELECT RM_ID FROM userslogin WHERE USER_ID = '";
 	public static final String USERCOUNT="select  COUNT(User_Id) AS NumberOfUserId FROM create_table.userslogin";
 	public static final String USERCOUNTRM="select  COUNT(id) AS NumberOfUserId FROM create_table.new_table";
+	public static final String SEARCHUSERS="select * from new_poc.userslogin where FIRST_NAME=? OR LAST_NAME =? ";
+
 }

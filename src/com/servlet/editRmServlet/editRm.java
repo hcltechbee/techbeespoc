@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.classes.users.UsersDataBase;
+import com.connection.Userslogin;
 
 /**
  * Servlet implementation class editRm
@@ -27,20 +30,16 @@ public class editRm extends HttpServlet {
 			response.sendRedirect("Login.jsp");
 		}
 		// TODO Auto-generated method stub
-		String Rm_Id = request.getParameter("Rm_Id");
-		String User_Id = request.getParameter("user_id");
-		Connection con = UsersDataBase.getConnection();
-		try {
-		Statement stmt;
-			stmt = con.createStatement();
-			String query = com.constants.QueryConstants.UPDATERMQUERY + Rm_Id + "' WHERE USER_ID = '"+ User_Id + "'";
-			System.out.println(query);
-			stmt.executeUpdate(query);
+		int Rm_Id = Integer.parseInt(request.getParameter("Rm_Id"));
+		int User_Id = Integer.parseInt(request.getParameter("user_id"));
+		EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+		  EntityManager em=emf.createEntityManager();
+		  em.getTransaction().begin();
+		  Userslogin userslogin = new Userslogin();
+		  userslogin = em.find(Userslogin.class, User_Id);
+		  userslogin.setRmId(Rm_Id);
 			response.sendRedirect("SearchReportingManager.jsp");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 }

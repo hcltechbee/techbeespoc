@@ -44,7 +44,7 @@ header, section, footer {
 				session = request.getSession(false);
 			if (session.getAttribute("name") == null) {
 				// No session present, you can create yourself
-				out.println("<a class='btn btn-primary' href='" + com.constants.URLConstants.loginPageUrl
+				out.println("<a class='btn btn-primary' href='" + com.constants.URLConstants.LOGIN_PAGE_URL
 				+ "' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");
 			} else {
 				// Already created.
@@ -78,8 +78,8 @@ header, section, footer {
 
 					<div class="info">
 						<a href="#" class="d-block"> <%
- 	if (session.getAttribute(com.constants.UIConstants.sessionName) != null) {
- 	out.println(session.getAttribute(com.constants.UIConstants.sessionName));
+ 	if (session.getAttribute(com.constants.UIConstants.SESSION_NAME) != null) {
+ 	out.println(session.getAttribute(com.constants.UIConstants.SESSION_NAME));
  }
  %>
 						</a>
@@ -94,24 +94,21 @@ header, section, footer {
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
-
-
-						<!--       <li class="nav-item">
-            <a href="Registeration_Form.html" class="nav-link">
-              <i class="nav-icon fa fa-user"></i>
-            <p>
-                Delete User
-              </p>
-            </a>
-          </li>-->
-						<li class="nav-item"><a href="Search.jsp" class="nav-link">
-								<i class="nav-icon  fas fa-user-minus"></i>
-								<p>Search User</p>
-						</a>
-						<li class="nav-item"><a href="SearchingUsingSearch.jsp"
-							class="nav-link"> <i class="nav-icon  fas fa-pen-alt"></i>
+						<li class="nav-item"><a href="Registeration_Form.html"
+							class="nav-link"> <i class="nav-icon fa fa-user"></i>
+								<p>Add User</p>
+						</a></li>
+						<li class="nav-item"><a href="DeleteUsingSearch.jsp"
+							class="nav-link"> <i class="nav-icon  fas fa-user-minus"></i>
 								<p>Delete User</p>
+						</a>
+						<li class="nav-item"><a href="UpdateUser.jsp"
+							class="nav-link"> <i class="nav-icon  fas fa-pen-alt"></i>
+								<p>Update User</p>
+						</a>
+						<li class="nav-item"><a href="SearchUser.jsp"
+							class="nav-link"> <i class="nav-icon  fas fa-search"></i>
+								<p>Search User</p>
 						</a>
 					</ul>
 				</nav>
@@ -143,7 +140,7 @@ header, section, footer {
 
 
 
-			<form name="searching" action="Searching.jsp"
+			<form name="searching" action="SearchingUser.jsp"
 				onsubmit="return validateForm()" method="POST">
 
 

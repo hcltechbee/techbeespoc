@@ -1,18 +1,20 @@
 package com.servlet.forgetPassServlet;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.classes.users.UsersDataBase;
-import com.constants.QueryConstants;
+import com.connection.Userdetail;
+import com.connection.Userslogin;
 
 
 /**
@@ -22,22 +24,35 @@ import com.constants.QueryConstants;
 public class forgetServlet extends HttpServlet {	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forget_mobile_number = request.getParameter(com.constants.UIConstants.FORGET_NUMBER);
-		try{
-		Connection con = UsersDataBase.getConnection();
-		Statement statement = con.createStatement();
-		ResultSet check_mobile_number = statement.executeQuery(QueryConstants.CHECKMOBILE + forget_mobile_number + "'");
-		String Email;
-		if(check_mobile_number.next()){
-			Email = check_mobile_number.getString(1);
-			response.sendRedirect(com.constants.URLConstants.LOGIN_EMAIL_URL+ Email);
-		}
-		else{
-			response.sendRedirect("forgot.jsp?error=mobile_number_invalid");
-		}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+			EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+		      EntityManager em=emf.createEntityManager();
+		      em.getTransaction().begin();
+		      Query query = em.createQuery("SELECT u FROM Userdetail u WHERE u.mobileNumber = " + forget_mobile_number);
+		      List<Userdetail> dataList = query.getResultList();		      
+		      System.out.println(query);
+		      em.getTransaction().commit();
+		      int user_id = 0;
+		      for(Userdetail d: dataList){
+		    	  System.out.println(user_id);
+		    	  user_id = d.getUserId();
+		      }
+		      if(user_id != 0){
+		      em.getTransaction().begin();
+		      Userslogin usersLogin = em.find(Userslogin.class, user_id);
+		      em.getTransaction().commit();
+		      String Email = "";
+		    	  Email = usersLogin.getEmailId();
+		    	  if(Email!="")
+		    	  {
+		    	  response.sendRedirect(com.constants.URLConstants.LOGIN_EMAIL_URL+ Email);
+		    	  }		 
+		    	  else{
+		    		  response.sendRedirect("forgot.jsp?error=mobile_number_invalid");
+		    	  }
+		      }
+		      else{
+		    	  response.sendRedirect("forgot.jsp?error=mobile_number_invalid");
+		      }
+		
 	}
-
 }

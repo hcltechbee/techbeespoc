@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="userslogin")
-
+@NamedQuery(name="Userslogin.findAll", query="SELECT u FROM Userslogin u")
 public class Userslogin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +19,17 @@ public class Userslogin implements Serializable {
 	@Column(name="User_Id", unique=true, nullable=false)
 	private int user_Id;
 
+	@Column(name="DEPARTMENT", length=45)
+	private String department;
+
 	@Column(name="EMAIL_ID", nullable=false, length=255)
 	private String emailId;
 
 	@Column(name="FIRST_NAME", nullable=false, length=45)
 	private String firstName;
+
+	@Column(name="IS_RM")
+	private byte isRm;
 
 	@Column(name="ISADMIN", nullable=false)
 	private byte isadmin;
@@ -31,12 +37,17 @@ public class Userslogin implements Serializable {
 	@Column(name="LAST_NAME", nullable=false, length=45)
 	private String lastName;
 
+	@Column(name="LOCATION", length=45)
+	private String location;
+
 	@Column(name="PASSWORD", nullable=false, length=255)
 	private String password;
 
-	//bi-directional one-to-one association to Userdetail
-	@OneToOne(mappedBy="userslogin", cascade={CascadeType.PERSIST})
-	private Userdetail userdetail;
+	@Column(name="RM_ID")
+	private int rmId;
+
+	@Column(name="USERDETAIL_USER_ID")
+	private int userdetailUserId;
 
 	public Userslogin() {
 	}
@@ -47,6 +58,14 @@ public class Userslogin implements Serializable {
 
 	public void setUser_Id(int user_Id) {
 		this.user_Id = user_Id;
+	}
+
+	public String getDepartment() {
+		return this.department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public String getEmailId() {
@@ -65,6 +84,14 @@ public class Userslogin implements Serializable {
 		this.firstName = firstName;
 	}
 
+	public byte getIsRm() {
+		return this.isRm;
+	}
+
+	public void setIsRm(byte isRm) {
+		this.isRm = isRm;
+	}
+
 	public byte getIsadmin() {
 		return this.isadmin;
 	}
@@ -81,6 +108,14 @@ public class Userslogin implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public String getLocation() {
+		return this.location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public String getPassword() {
 		return this.password;
 	}
@@ -89,12 +124,20 @@ public class Userslogin implements Serializable {
 		this.password = password;
 	}
 
-	public Userdetail getUserdetail() {
-		return this.userdetail;
+	public int getRmId() {
+		return this.rmId;
 	}
 
-	public void setUserdetail(Userdetail userdetail) {
-		this.userdetail = userdetail;
+	public void setRmId(int rmId) {
+		this.rmId = rmId;
+	}
+
+	public int getUserdetailUserId() {
+		return this.userdetailUserId;
+	}
+
+	public void setUserdetailUserId(int userdetailUserId) {
+		this.userdetailUserId = userdetailUserId;
 	}
 
 }

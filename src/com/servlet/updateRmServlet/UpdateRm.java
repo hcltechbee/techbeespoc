@@ -4,7 +4,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.classes.users.UsersDataBase;
+import com.connection.Userslogin;
 
 /**
  * Servlet implementation class UpdateRm
@@ -25,23 +32,28 @@ public class UpdateRm extends HttpServlet {
 				response.sendRedirect("Login.jsp");
 			}
 		// TODO Auto-generated method stub
-	String RM_Id = request.getParameter("Rm_Id");
-	String User_Id = request.getParameter("user_id");
-	try{
-	Connection con = UsersDataBase.getConnection();
-	Statement stmt = con.createStatement();
-	ResultSet rs = stmt.executeQuery(com.constants.QueryConstants.CHECKRMID+ RM_Id + "' AND IS_RM=1" );
-	if (rs.next() == false)
-	{
-		response.sendRedirect("UpdateReportingManager.jsp?edit=yes&fetch=yes&error='yes'");
-	}
-	else{
-	stmt.executeUpdate(com.constants.QueryConstants.UPDATERMQUERY + RM_Id + "' WHERE USER_ID = '" + User_Id+"'");
-	response.sendRedirect("SearchReportingManager.jsp");
-	}
-	}
-		catch(Exception e){
-			e.printStackTrace();
+	int RM_Id = Integer.parseInt(request.getParameter("Rm_Id"));
+	int User_Id = Integer.parseInt(request.getParameter("user_id"));
+	EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+	  EntityManager em=emf.createEntityManager();
+	  em.getTransaction().begin();
+	  Query query = em.createQuery("SELECT u "+"from Userslogin u "+"where u.user_Id = " +RM_Id+" AND u.isRm = "+1);
+		Userslogin userslogin = em.find(Userslogin.class, User_Id); 
+		List<Userslogin> userData = new ArrayList<>();
+		userData = query.getResultList();
+		em.getTransaction().commit();
+		for(Userslogin s: userData){
+			em.getTransaction().begin();
+			userslogin.setRmId(RM_Id);
+			em.getTransaction().commit();
+			
 		}
-}
+		if(userslogin.getRmId() == RM_Id){
+		response.sendRedirect("SearchReportingManager.jsp");
+		}
+		else{
+		response.sendRedirect("UpdateReportingManager.jsp?edit=yes&fetch=yes&error='yes'");}
+		}
+		
+
 }

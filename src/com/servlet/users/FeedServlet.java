@@ -26,8 +26,8 @@ public class FeedServlet extends HttpServlet {
         int CheckId=0;
         if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null)
         {
-        	loginedUser =(String)session.getAttribute(com.constants.UIConstants.SESSION_NAME);
-        	loginedUserId=(String)session.getAttribute(com.constants.UIConstants.SESSION_USER_ID);
+        	loginedUser =session.getAttribute(com.constants.UIConstants.SESSION_NAME).toString();
+        	loginedUserId=session.getAttribute(com.constants.UIConstants.SESSION_USER_ID).toString();
         	CheckId=Integer.parseInt(loginedUserId);
         	String userLogined[]=loginedUser.split(" ");
         	//System.out.println(userLogined[0]);
@@ -41,7 +41,7 @@ public class FeedServlet extends HttpServlet {
 		String imageOfUser = "";
 		imageOfUser=request.getParameter("image");
 		
-		if(messageOfUser.isBlank()) {
+		if(messageOfUser.isEmpty()) {
 			out.println("<script type=\"text/javascript\">");  
 			out.println("alert('PLEASE ENTER SOME TEXT');");  
 			out.println("</script>"); 

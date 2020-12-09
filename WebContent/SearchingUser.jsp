@@ -1,4 +1,6 @@
+<%@page import="com.connection.Userdetail"%>
 <%@page import="com.classes.users.User"%>
+<%@page import="com.connection.Userdetail"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -48,7 +50,7 @@
 session = request.getSession(false);
     if (session.getAttribute("name") == null) {
         // No session present, you can create yourself
-    out.println("<a class='btn btn-primary' href='"+com.constants.URLConstants.loginPageUrl +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
+    out.println("<a class='btn btn-primary' href='"+com.constants.URLConstants.LOGIN_PAGE_URL +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
     } else {
         // Already created.
         out.println("<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
@@ -72,7 +74,7 @@ session = request.getSession(false);
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
 					<div class="info">
-						<a href="#" class="d-block"> <% if(session.getAttribute(com.constants.UIConstants.sessionName)!= null){out.println(session.getAttribute(com.constants.UIConstants.sessionName));} %>
+						<a href="#" class="d-block"> <% if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null){out.println(session.getAttribute(com.constants.UIConstants.SESSION_NAME));} %>
 						</a>
 					</div>
 				</div>
@@ -84,22 +86,24 @@ session = request.getSession(false);
 						data-widget="treeview" role="menu" data-accordion="false">
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
-
-
-						<li class="nav-item"><a href="" class="nav-link"> <i
-								class="nav-icon fa fa-user"></i>
+						<li class="nav-item"><a href="Registeration_Form.html"
+							class="nav-link"> <i class="nav-icon fa fa-user"></i>
 								<p>Add User</p>
 						</a></li>
-						<li class="nav-item"><a href="SearchingUsingSearch.jsp"
+						<li class="nav-item"><a href="DeleteUsingSearch.jsp"
 							class="nav-link"> <i class="nav-icon  fas fa-user-minus"></i>
 								<p>Delete User</p>
 						</a>
-						<li class="nav-item"><a href="" class="nav-link"> <i
-								class="nav-icon  fas fa-pen-alt"></i>
+						<li class="nav-item"><a href="UpdateUser.jsp"
+							class="nav-link"> <i class="nav-icon  fas fa-pen-alt"></i>
 								<p>Update User</p>
 						</a>
+						<li class="nav-item"><a href="SearchUser.jsp"
+							class="nav-link"> <i class="nav-icon  fas fa-search"></i>
+								<p>Search User</p>
+						</a>
 					</ul>
+					>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
@@ -108,21 +112,21 @@ session = request.getSession(false);
 
 
 		<%
-          String loginedUser="";
-              String loginedUserId="";
-              int CheckId=0;
-              if(session.getAttribute(com.constants.UIConstants.sessionName)!= null)
-              {
-              loginedUser =(String)session.getAttribute(com.constants.UIConstants.sessionName);
-              CheckId=Integer.parseInt(loginedUserId);
-              String userLogined[]=loginedUser.split(" ");
+//           String loginedUser="";
+//               String loginedUserId="";
+//               int CheckId=0;
+//               if(session.getAttribute(com.constants.UIConstants.sessionName)!= null)
+//               {
+//               loginedUser =(String)session.getAttribute(com.constants.UIConstants.sessionName);
+//               CheckId=Integer.parseInt(loginedUserId);
+//               String userLogined[]=loginedUser.split(" ");
              
-              loginedUser=userLogined[0];
-              //System.out.println(loginedUser); 
-              } 
-              //System.out.println(CheckId);
-              String userSearched=request.getParameter("NameToSearch");                                      //
-              String action;
+//               loginedUser=userLogined[0];
+//               //System.out.println(loginedUser); 
+//               } 
+//               //System.out.println(CheckId);
+//               String userSearched=request.getParameter("NameToSearch");                                      //
+//               String action;
              
               %>
 
@@ -167,7 +171,7 @@ session = request.getSession(false);
               
           
               
-                      List<User> searchedList = UsersDataBase.getAllEmployee(nameToFilter,NameToFilter);
+                      List<Userdetail> searchedList = UsersDataBase.getAllEmployee(nameToFilter,NameToFilter);
                       if (searchedList.size()==0){
                      out.println("USER DOES NOT EXIST");
                       } else {
@@ -183,8 +187,8 @@ session = request.getSession(false);
 								<th>First Name</th>
 								<th>Last Name</th>
 								<th>Email-ID</th>
-								<th>Mobile-No.</th>
 								<th>Country</th>
+								<th>Gender</th>
 
 								<th></th>
 							</tr>
@@ -195,14 +199,14 @@ session = request.getSession(false);
               int COUNT=0;
               String email="";
               int id=0;
-              for(User currentUser:searchedList){  
+              for(Userdetail currentUser:searchedList){  
          
                 out.println("<tr>");
-                out.println("<td>"+currentUser.getFirst_name()+"</td>");
-                out.println("<td>"+currentUser.getLast_Name()+"</td>");
-                out.println("<td>"+currentUser.getEmail_Id()+"</td>");
-                out.println("<td>"+currentUser.getMobile_No()+"</td>");
-                out.println("<td>"+currentUser.getCountry()+"</td>");         
+                out.println("<td>"+currentUser.getFirstName()+"</td>");
+                out.println("<td>"+currentUser.getLastName()+"</td>");
+                out.println("<td>"+currentUser.getMobileNumber()+"</td>");
+                out.println("<td>"+currentUser.getCountry()+"</td>");     
+                out.println("<td>"+currentUser.getGender()+"</td>"); 
                 out.println("</td>");
                 out.println("</tr");      
             COUNT++;
@@ -317,7 +321,6 @@ session = request.getSession(false);
       showConfirmButton: false,
       timer: 3000
     });
-
     $('.swalDefaultSuccess').click(function() {
       Toast.fire({
         icon: 'success',
@@ -348,7 +351,6 @@ session = request.getSession(false);
         title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
       })
     });
-
     $('.toastrDefaultSuccess').click(function() {
       toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
     });
@@ -361,7 +363,6 @@ session = request.getSession(false);
     $('.toastrDefaultWarning').click(function() {
       toastr.warning('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
     });
-
     $('.toastsDefaultDefault').click(function() {
       $(document).Toasts('create', {
         title: 'Toast Title',
@@ -473,7 +474,7 @@ deletes = document.getElementsByClassName('delete')
   var confirmDelete=document.getElementById('confirm');    
 console.log(sno);
 confirmDelete.addEventListener('click', (e)=>{
-window.location='DeleteServlet?id='+sno;
+window.setTimeout(`window.location='DeleteServlet?id='+sno`, 1000);
      })
     })
   })

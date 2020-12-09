@@ -1,16 +1,17 @@
 <!--<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>-->
+           
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TechBee | Delete User</title>
+  <title>TechBee | Update User</title>
 
   
   
   <!-- Theme style -->
-    <link rel="stylesheet" href="adminlte.min.css">
+    <link rel="stylesheet" href="css/adminlte.min.css">
   <script src="https://kit.fontawesome.com/550c1e8106.js" crossorigin="anonymous"></script>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -152,17 +153,17 @@
   </footer>
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+<script src="js/demo.js"></script>
 <!-- jQuery -->
 <script src="js/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src=".js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->

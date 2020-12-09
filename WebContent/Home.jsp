@@ -1,11 +1,9 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.sql.Date"%>
+<%@page import="com.servlet.users.Userfeed"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="com.mysql.jdbc.Blob"%>
 <%@page import="com.classes.users.UsersDataBase"%>
 <%@page import="com.classes.users.Feed"%>
 <%@page import="java.util.List"%>
@@ -45,7 +43,7 @@
 }
 
 img {
-    max-width: 100%;
+    max-width: 300px;
     vertical-align: middle;
     border-style: none;
     height: 300px;
@@ -75,13 +73,14 @@ img {
 	session = request.getSession(false);
     if (session.getAttribute("name") == null) {
         // No session present, you can create yourself
-    	out.println("<a class='btn btn-primary' href='"+URLConstants.loginPageUrl +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
+    	out.println("<a class='btn btn-primary' href='"+URLConstants.LOGIN_PAGE_URL +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
     } else {
         // Already created.
         out.println("<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
     }
     %>
     </nav>
+    </div>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -96,7 +95,7 @@ img {
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         
         <div class="info">
-          <a href="#" class="d-block"><% if(session.getAttribute(UIConstants.sessionName)!= null){out.println(session.getAttribute(UIConstants.sessionName));} else response.sendRedirect("Login.jsp"); %></a>
+          <a href="#" class="d-block"><% if(session.getAttribute(UIConstants.SESSION_NAME)!= null){out.println(session.getAttribute(UIConstants.SESSION_NAME));} else response.sendRedirect("Login.jsp"); %></a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -126,19 +125,18 @@ img {
                   Update User
                 </p>
               </a>
-               <li class="nav-item">
+              <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon  fas fa-pen-alt"></i>
+                <p>
+                  RM Search
+                </p>
+              </a>
+    <li class="nav-item">
               <a href="SearchUser.jsp" class="nav-link">
                 <i class="nav-icon  fas fa-search"></i>
                 <p>
                   Search User
-                </p>
-              </a>
-              
-                    <li class="nav-item">
-              <a href="UploadFeed.jsp" class="nav-link">
-                <i class="nav-icon  fas fa-upload"></i>
-                <p>
-                  Upload Feeds
                 </p>
               </a>
         </ul>
@@ -163,7 +161,7 @@ img {
 
 
 	  <!-- Content Wrapper. Contains page content -->
-  <div class="container" style="text-align:center" >
+  <div class="container" >
     <!-- Content Header (Page header) -->
 
 
@@ -171,20 +169,33 @@ img {
     <section class="container-fluid" style="text-align:center">
       <div class="container-fluid">
         <div class="row">
+        <form action="InsertFeed">
           <div class="col-12">
             <!-- Default box -->
-        
-      
-            
-            
-            
-  
-          
-          
-          
-          
-          
-          
+            <div class="card card-primary" style='margin-bottom:80px'>
+              <div class="card-header">
+                <h3 class="card-title"></h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+<!--                 <input type="text" name="messageByUser" placeholder="Type Your Text Here"> -->
+                <textarea rows="3" cols="140" name="messageByUser" placeholder="Type Your Text Here" required></textarea>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer justify-content-between">
+              <input type="file" id="img" class="btn btn-primary" name="image" value="PHOTO" required accept="image/*" onchange="return fileValidation()" style="overflow:hidden">
+              <br>
+              <br>
+              <input type="submit" class="btn btn-primary" value="POST">
+              </div>
+              
+              <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
             
             <%@page import="com.classes.users.UsersDataBase"%>
             <%@page import="com.classes.users.Feed"%>
@@ -199,10 +210,10 @@ img {
             String loginedUser="";
             String loginedUserId="";
             int CheckId=0;
-            if(session.getAttribute(com.constants.UIConstants.sessionName)!= null)
+            if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null)
             {
-            	loginedUser =(String)session.getAttribute(com.constants.UIConstants.sessionName);
-            	loginedUserId=(String)session.getAttribute(com.constants.UIConstants.sessionUser_id);
+            	loginedUser =session.getAttribute(com.constants.UIConstants.SESSION_NAME).toString();
+            	loginedUserId=session.getAttribute(com.constants.UIConstants.SESSION_USER_ID).toString();
             	CheckId=Integer.parseInt(loginedUserId);
             	String userLogined[]=loginedUser.split(" ");
             	//System.out.println(userLogined[0]);
@@ -214,70 +225,54 @@ img {
             String dateToSearch = ""+timeToFilter; 
             System.out.println(dateToSearch);
             
-	            List<Feed> feedList = UsersDataBase.getAllFeeds(dateToSearch);
-	                   
-	                   for(Feed currentUser:feedList)
-	                   {
-	                	   
-	                	   
-	                	   
-	                	   
-            %> 
+            List<Userfeed> feedList = UsersDataBase.getAllFeeds(dateToSearch);
+                   
+            for(Userfeed currentUser:feedList)
+                   {
+                	   
+            %>
             
-         <div class="container" style="margin-left: 10px;margin-bottom:60px;">
-          <div class="col-md-12">
-            <!-- Box Comment -->
-            <div class="card card-widget">
+             <div class="card card-primary" style='margin-bottom:60px'>
               <div class="card-header">
-                <div class="user-block text-left">
-                
-
-              
-                  <img class="img-circle" src="UserImage.png" alt="NOT">
-                  <span class="username"><a href="#"><%out.println(UsersDataBase.getName(currentUser.getUser_Id()));%></a></span>
-                  <span class="description">Shared publicly on - <% Date time=currentUser.getDATE_CREATED(); SimpleDateFormat formatter = new SimpleDateFormat("E, dd/MM/yyyy");   String strDate= formatter.format(time);    out.println(strDate); %> </span>
-                </div>
-               
-                     <div class="card-tools text-right">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <h3 class="card-title"></h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
                 </div>
-              
               </div>
-              
               <div class="card-body">
-
-				<img src="FeedImage?id=<%=currentUser.getFeed_Id()%>">
-                <p style="text-align:left;"><% out.println(currentUser.getFeed_Text()); %></p>
+              
+              <div style="text-align:left;">
+              <%
+               
+              out.println(currentUser.getFeedText());
+              //Blob blob = currentUser.getPhoto();
+              //Thread.sleep(1000);
+              
+              %>
+              </div>
+<div class="col-12">
+    <div class="thumbnail">
+        <img src="FeedImage?id=<%=currentUser.getFeedId()%>">
+    </div>
+ </div>
+  
+<%-- <img src="FeedImage?id=<%=currentUser.getFeed_Id()%>" /> --%>
               </div>
               <!-- /.card-body -->
-        
-              <!-- /.card-footer -->
-              <!-- /.card-footer -->
+              <div class="card-footer">
+              
+              </div>
+              
+              <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
+            
           </div>
-          <!-- /.col -->
-          </div>
-       
-	           
-	            
-	         
-	   <%
-                 }
-
-	   %>
-	   
-    </div>
+   <%
+                   }
+   %>
    
- 
-         
-          
-          
         </div>
       </div>
     </section>
@@ -285,11 +280,6 @@ img {
   </div>
   <!-- /.content-wrapper -->
  
- 
-
-  
-          
-          
 
   <footer class="main-footer footer" style='z-index:10'>
 	   <strong>Copyright &copy; 2020</strong> All rights reserved.

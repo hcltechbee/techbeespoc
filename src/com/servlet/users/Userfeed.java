@@ -2,6 +2,9 @@ package com.servlet.users;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.mysql.jdbc.Blob;
+
 import java.sql.Timestamp;
 
 
@@ -13,20 +16,25 @@ import java.sql.Timestamp;
 @Table(name="userfeeds")
 @NamedQuery(name="Userfeed.findAll", query="SELECT u FROM Userfeed u")
 public class Userfeed implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="FEED_ID", unique=true, nullable=false)
 	private int feedId;
 
-	@Column(name="DATE_CREATED")
+	
+	@Column(name="DATE_CREATED" , columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	
 	private Timestamp dateCreated;
 
 	@Lob
 	@Column(name="FEED_TEXT", nullable=false)
 	private String feedText;
 
-	@Column(name="LAST_UPDATED")
+	
+	@Column(name="LAST_UPDATED", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	
 	private Timestamp lastUpdated;
 
 	@Lob
@@ -86,5 +94,6 @@ public class Userfeed implements Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	
 
 }

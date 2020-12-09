@@ -11,9 +11,9 @@ public class URLConstants {
 	public static final String UPDATE_USER = "UpdateUser.jsp";
 	
 	
-	public static final String DATABASEURL="jdbc:mysql://localhost:3306/POC_work";
+	public static final String DATABASEURL="jdbc:mysql://localhost:3309/users";
 	public static final String DATABASEUSERNAME="root";
-	public static final String DATABASEPASSWORD="2710";
+	public static final String DATABASEPASSWORD="123456";
 	public static final String DATABASEDRIVER="com.mysql.jdbc.Driver";
 	public static Connection DATABASECONNECTION=null; 
 }

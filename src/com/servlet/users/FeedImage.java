@@ -6,13 +6,14 @@ package com.servlet.users;
 
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+import javax.sql.rowset.serial.SerialBlob;
  
 
 import javax.servlet.ServletOutputStream;
@@ -35,35 +36,27 @@ public class FeedImage extends HttpServlet {
         int FeedId = Integer.parseInt(request.getParameter("id"));
         
         ServletOutputStream imageOut = response.getOutputStream();  
-        List<Feed> feedList = UsersDataBase.getFeedImage(FeedId);
+        List<Userfeed> feedList = UsersDataBase.getFeedImage(FeedId);
         
-        for(Feed currentUser:feedList)
+        for(Userfeed currentUser:feedList)
         {
-           
-
- 
-
-          Blob blob = currentUser.getPhoto();
-          response.setContentType("image");
-          InputStream in = null;
-          int length;
-        try {
-            in = blob.getBinaryStream();
-             length = (int) blob.length();
-        }
-        catch (Exception e) {
-            System.out.println("EXCEPTION");
-        }
+        	byte[] my_byte_array= currentUser.getPhoto();
+        	  //Blob blob = null;
+        	  //blob = new SerialBlob(my_byte_array);
+        	
         
-          int bufferSize = 1024;
-          byte[] buffer = new byte[bufferSize];
-          while ((length = in.read(buffer)) != -1) {
+          response.setContentType("image");
+          
+          //int length = my_byte_array.length;
+       
+          
+         
           
       
-          imageOut.write(buffer, 0, length);
+          imageOut.write(my_byte_array);;
           System.out.println("IMAGE DISPLAYED");
         
-             }
+             
         }
 }
 }

@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.connection.Userslogin"%>
+<%@page import="javax.persistence.Query"%>
+<%@page import="javax.persistence.EntityManager"%>
+<%@page import="javax.persistence.Persistence"%>
+<%@page import="javax.persistence.EntityManagerFactory"%>
 <%@page import="com.constants.QueryConstants"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -12,7 +19,7 @@
 
 
 <%
-	String user_Id = request.getParameter("id");
+	int user_Id = Integer.parseInt(request.getParameter("id"));
 	String edit = "";
 	edit = request.getParameter("edit");
 	String add = "";
@@ -81,8 +88,7 @@
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
 					<div class="info">
-						<a href="#" class="d-block">
-							<% if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null){out.println(session.getAttribute(com.constants.UIConstants.SESSION_NAME));} %>
+						<a href="#" class="d-block"> <% if(session.getAttribute(com.constants.UIConstants.SESSION_NAME)!= null){out.println(session.getAttribute(com.constants.UIConstants.SESSION_NAME));} %>
 						</a>
 					</div>
 				</div>
@@ -155,157 +161,169 @@
 						<div class="card card-primary">
 							<div class="card-header">
 								<h3 class="card-title">RM Details</h3>
-								
-						<% if(edit!=null){
-							Connection con = UsersDataBase.getConnection() ;
-							Statement stmt = con.createStatement();
-							ResultSet rs = stmt.executeQuery(QueryConstants.GETRMID + user_Id + "'");
-							int Rm_Id = 0;
+
+								<% if(edit!=null && request.getParameter("fetch")==null){
+							EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+      						EntityManager em=emf.createEntityManager();
+      						em.getTransaction().begin();   
+      						Query query = em.createQuery("SELECT u.rmId from Userslogin u WHERE u.user_Id = " + user_Id);
 							String Rm_Name= "";
 							String Rm_Department = "";
-							if(rs.next()!=false){
-							Rm_Id = rs.getInt(1);}
-							Statement stmt2 = con.createStatement();
-							ResultSet rs2 = stmt2.executeQuery(QueryConstants.CHECKRMID + Rm_Id + "'");
-							while(rs2.next()){
-								Rm_Name = rs2.getString(2) + " " +  rs2.getString(3);
-								Rm_Department = rs2.getString(10);
+							List<Userslogin> rmIdList= new ArrayList<>();
+							List<Userslogin> userData = new ArrayList<>();
+						    rmIdList = query.getResultList();
+						    Userslogin userslogin = em.find(Userslogin.class, user_Id);
+						    em.getTransaction().commit();
+						    int Rm_Id = 0;
+							Rm_Id = userslogin.getRmId();
+							em.getTransaction().begin();
+							query = em.createQuery("SELECT u from Userslogin u WHERE u.user_Id = " + Rm_Id);
+							userData = query.getResultList();
+							em.getTransaction().commit();
+							for(Userslogin u: userData){
+								Rm_Name = u.getFirstName() + " " +  u.getLastName();
+								Rm_Department = u.getDepartment();
 							}
-							if(request.getParameter("fetch") != null){
+							if(request.getParameter("fetch") != null&&request.getParameter("error")==null){
 								Rm_Name = rm_name;
 								Rm_Department = rm_dept;
 								Rm_Id = Integer.parseInt(rm_id);
 								System.out.println(Rm_Name);
 							}
 							%>
-							<form action = 'editRm' method='post'>
-							<div class='card-tools'>
-								<button type="button" class="btn btn-tool"
-									data-card-widget="collapse" title="Collapse">
-									<i class="fas fa-minus"></i>
-								</button>
+								<form action='editRm' method='post'>
+									<div class='card-tools'>
+										<button type="button" class="btn btn-tool"
+											data-card-widget="collapse" title="Collapse">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
 							</div>
-						</div>
-						<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"' id='user_id'></input>"); %>
-						<div>
-							<div class="input-group mb-3">
-								<% out.println("<input type='text' class='form-control' name='Full_Name' id='rm_name' value='"+Rm_Name +"' required readonly>");%>						
-								<div class="input-group-append">
-									<div class="input-group-text">
-										<span class="fas fa-user"></span>
+							<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"' id='user_id'></input>"); %>
+							<div>
+								<div class="input-group mb-3">
+									<% out.println("<input type='text' class='form-control' name='Full_Name' id='rm_name' value='"+Rm_Name +"' required readonly>");%>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<span class="fas fa-user"></span>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="input-group mb-3">
-								<% out.println("<input type='text' class='form-control' id='rm_dept' name='Dept_Name' value='" + Rm_Department + "' required readonly>");%>
-								<div class="input-group-append">
-									<div class="input-group-text">
-										<span class="fas fa-address-book"></span>
+								<div class="input-group mb-3">
+									<% out.println("<input type='text' class='form-control' id='rm_dept' name='Dept_Name' value='" + Rm_Department + "' required readonly>");%>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<span class="fas fa-address-book"></span>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="input-group mb-3">
-								<% out.println("<input type='text' class='form-control' id='rm_id' name='Rm_Id' value='"+Rm_Id +"' required>");%>
-							<button type='button' style='margin-right:5px' id='fetch_details'>Fetch Details  </button>
-								<div class="input-group-append">
-									<div class="input-group-text">
-										<span class="fas fa-pen-nib"></span>
+								<div class="input-group mb-3">
+									<% out.println("<input type='text' class='form-control' id='rm_id' name='Rm_Id' value='"+Rm_Id +"' required>");%>
+									<button type='button' style='margin-right: 5px'
+										id='fetch_details'>Fetch Details</button>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<span class="fas fa-pen-nib"></span>
+										</div>
 									</div>
 								</div>
-							</div>
-							<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"'></input>"); %>
-							<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' id='rm_id_box' value='"+Rm_Id+"'></input>"); %>
-							<% 
+								<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"'></input>"); %>
+								<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' id='rm_id_box' value='"+Rm_Id+"'></input>"); %>
+								<% 
 								if(request.getParameter("error")!= null){
 									out.println("<h6 style='color:red';><b>Sorry!! Rm With Such Id is not available</b></h6>");
 								}
 							%>
-							<div class="row">
-								<div class="col-12">
-									<a href="SearchReportingManager.jsp" class="btn btn-secondary">Back</a> <input
-										id='sbmt_btn' type="submit" value="Update Rm"
-										class="btn btn-primary float-right">
+								<div class="row">
+									<div class="col-12">
+										<a href="SearchReportingManager.jsp" class="btn btn-secondary">Back</a>
+										<input id='sbmt_btn' type="submit" value="Update Rm"
+											class="btn btn-primary float-right">
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				</form>
-				<%}
-						else{%>
-						<form action = 'UpdateRm' method='post'>
+					</form>
+					<%
+				}
+						else{ 
+						%>
+					<form action='UpdateRm' method='post'>
 						<%
 							String Rm_Name = "";
 							String Rm_Department = "";
 							int Rm_Id = 0;
-							if(request.getParameter("fetch") != null){
+							if(request.getParameter("fetch") != null&&request.getParameter("error")==null){
 								Rm_Name = rm_name;
 								Rm_Department = rm_dept;
 								Rm_Id = Integer.parseInt(rm_id);
 								System.out.println(Rm_Name);
 							}
 							%>
-							<div class='card-tools'>
-								<button type="button" class="btn btn-tool"
-									data-card-widget="collapse" title="Collapse">
-									<i class="fas fa-minus"></i>
-								</button>
+						<div class='card-tools'>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse" title="Collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+						</div>
+				</div>
+				<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"' id='user_id'></input>"); %>
+				<div>
+					<div class="input-group mb-3">
+						<% out.println("<input type='text' class='form-control' name='Full_Name' id='rm_name' value='"+Rm_Name +"' required readonly>");%>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-user"></span>
 							</div>
 						</div>
-						<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"' id='user_id'></input>"); %>
-						<div>
-							<div class="input-group mb-3">
-								<% out.println("<input type='text' class='form-control' name='Full_Name' id='rm_name' value='"+Rm_Name +"' required readonly>");%>						
-								<div class="input-group-append">
-									<div class="input-group-text">
-										<span class="fas fa-user"></span>
-									</div>
-								</div>
+					</div>
+					<div class="input-group mb-3">
+						<% out.println("<input type='text' class='form-control' id='rm_dept' name='Dept_Name' value='" + Rm_Department + "' required readonly>");%>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-address-book"></span>
 							</div>
-							<div class="input-group mb-3">
-								<% out.println("<input type='text' class='form-control' id='rm_dept' name='Dept_Name' value='" + Rm_Department + "' required readonly>");%>
-								<div class="input-group-append">
-									<div class="input-group-text">
-										<span class="fas fa-address-book"></span>
-									</div>
-								</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<% out.println("<input type='text' class='form-control' id='rm_id' name='Rm_Id' value='"+Rm_Id +"' required>");%>
+						<button type='button' style='margin-right: 5px' id='fetch_details'>Fetch
+							Details</button>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-pen-nib"></span>
 							</div>
-							<div class="input-group mb-3">
-								<% out.println("<input type='text' class='form-control' id='rm_id' name='Rm_Id' value='"+Rm_Id +"' required>");%>
-							<button type='button' style='margin-right:5px' id='fetch_details'>Fetch Details  </button>
-								<div class="input-group-append">
-									<div class="input-group-text">
-										<span class="fas fa-pen-nib"></span>
-									</div>
-								</div>
-							</div>
-							<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"'></input>"); %>
-							<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' id='rm_id_box' value='"+Rm_Id+"'></input>"); %>
-							<% 
+						</div>
+					</div>
+					<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' name='user_id' value='"+user_Id+"'></input>"); %>
+					<% out.println("<input type='text' style='visibility:hidden; height:0; width:0;' id='rm_id_box' value='"+Rm_Id+"'></input>"); %>
+					<%
+							
 								if(request.getParameter("error")!= null){
 									out.println("<h6 style='color:red';><b>Sorry!! Rm With Such Id is not available</b></h6>");
 								}
 							%>
-							<div class="row">
-								<div class="col-12">
-									<a href="SearchReportingManager.jsp" class="btn btn-secondary">Back</a> <input
-										id='sbmt_btn' type="submit" value="Update Rm"
-										class="btn btn-primary float-right">
-								</div>
-							</div>
+					<div class="row">
+						<div class="col-12">
+							<a href="SearchReportingManager.jsp" class="btn btn-secondary">Back</a>
+							<input id='sbmt_btn' type="submit" value="Update Rm"
+								class="btn btn-primary float-right">
 						</div>
 					</div>
 				</div>
-				</form>
-			<% }%>							
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
 		</div>
-	
+	</div>
+	</form>
+	<% } %>
+	<!-- /.card-body -->
+	</div>
+	<!-- /.card -->
+	</div>
 
-		</section>
-		<!-- /.content -->
+
+	</section>
+	<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
 
@@ -348,7 +366,7 @@
 	<script src="js/adminlte.min.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="js/demo.js"></script>
-		
+
 	<script>
 		var rm_name = document.getElementById("rm_name").value;
 		var rm_dept = document.getElementById("rm_dept").value;
@@ -358,7 +376,6 @@
 	 document.getElementById('rm_id').oninput = function(){
 		var rm_id = document.getElementById("rm_id").value;
 		document.getElementById('fetch_details').addEventListener('click', function(){
-			console.log('done');
 			window.location='fetchdetailsservlet?rm_id=' + rm_id + '&user_id=' + user_id;
 		})
 		console.log(rm_id);

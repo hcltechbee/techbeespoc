@@ -5,7 +5,6 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="com.mysql.jdbc.Blob"%>
 <%@page import="com.classes.users.UsersDataBase"%>
 <%@page import="com.classes.users.Feed"%>
 <%@page import="java.util.List"%>
@@ -75,7 +74,7 @@ img {
 	session = request.getSession(false);
     if (session.getAttribute("name") == null) {
         // No session present, you can create yourself
-    	out.println("<a class='btn btn-primary' href='"+URLConstants.loginPageUrl +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
+    	out.println("<a class='btn btn-primary' href='"+URLConstants.LOGIN_PAGE_URL +"' style='float:right; margin-right:0; margin-left:auto;'> Login </a>");    
     } else {
         // Already created.
         out.println("<span style='float:right; margin-right:0; margin-left:auto;'><a class='btn btn-primary' href='logoutServlet'>Logout</a></span>");
@@ -96,7 +95,7 @@ img {
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         
         <div class="info">
-          <a href="#" class="d-block"><% if(session.getAttribute(UIConstants.sessionName)!= null){out.println(session.getAttribute(UIConstants.sessionName));} else response.sendRedirect("Login.jsp"); %></a>
+          <a href="#" class="d-block"><% if(session.getAttribute(UIConstants.SESSION_NAME)!= null){out.println(session.getAttribute(UIConstants.SESSION_NAME));} else response.sendRedirect("Login.jsp"); %></a>
         </div>
       </div>
       <!-- Sidebar Menu -->

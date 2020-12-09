@@ -14,7 +14,20 @@ public class UIConstants {
 	public static final String SESSION_NAME  = "name";
 	public static final String SESSION_ISADMIN = "isAdmin";
 	public static final String SESSION_LOGGEDIN  = "LoggedIn";
-	public static final String SESSION_USER_ID="ID";
+	public static final String SESSION_USER_ID="id";
+	
+	//parameters
+	
+	public static final String RM_ID = "rm_id";
+	public static final String USER_ID = "user_id";
+	public static final String GNEDER = "gender";
+	public static final String MESSAGEBYUSERS = "messageByUser";
+	public static final String IMAGE = "image";
+	
+	//entity name
+	
+	public static final String ENTITY_NAME = "InsertUsers";
+	
 	
 	public static final String FIRSTNAME  = "First_Name";
 	public static final String LASTNAME  = "Last_Name";

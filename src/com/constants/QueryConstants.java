@@ -18,4 +18,9 @@ public class QueryConstants {
 
 	public static final String CHECKRMID = "SELECT * FROM userslogin WHERE USER_ID = ";
 	public static final String GETRMID = "SELECT RM_ID FROM userslogin WHERE USER_ID = '";
+	public static final String SELECTFEED = "SELECT u FROM Userfeed u";
+	public static final String USERSLOGINSELECTQUERY = "SELECT u from Userslogin u WHERE u.user_Id = ";
+	public static final String DISPLAYUSERS="select u from userslogin";
+	public static final String MOBILENUMBERCHECK = "SELECT u FROM Userdetail u WHERE u.mobileNumber = ";
+	public static final String EMAILIDCHECK = "SELECT u FROM Userslogin u where u.emailId  = ";
 }

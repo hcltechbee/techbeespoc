@@ -1,6 +1,5 @@
 package com.servlet.users;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.classes.users.UsersDataBase;
-import com.constants.UIConstants;
 
 public class FeedServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,9 +35,9 @@ public class FeedServlet extends HttpServlet {
         System.out.println(CheckId);
         
 		String messageOfUser ="";
-	    messageOfUser=request.getParameter("messageByUser");
+	    messageOfUser=request.getParameter(com.constants.UIConstants.MESSAGEBYUSERS);
 		String imageOfUser = "";
-		imageOfUser=request.getParameter("image");
+		imageOfUser=request.getParameter(com.constants.UIConstants.IMAGE);
 		
 		if(messageOfUser.isEmpty()) {
 			out.println("<script type=\"text/javascript\">");  
@@ -54,7 +52,7 @@ public class FeedServlet extends HttpServlet {
 		
 		else {
 			UsersDataBase.InsertFeed(CheckId, messageOfUser, imageOfUser);
-		response.sendRedirect("Home.jsp");
+		response.sendRedirect(com.constants.URLConstants.HOME_PAGE_URL);
 		}
 	
 		

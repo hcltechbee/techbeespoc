@@ -1,9 +1,6 @@
 package com.servlet.updateRmServlet;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.classes.users.UsersDataBase;
 import com.connection.Userslogin;
 
 /**
@@ -29,30 +25,30 @@ public class UpdateRm extends HttpServlet {
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			HttpSession session = request.getSession();
 			if(session.getAttribute(com.constants.UIConstants.SESSION_NAME) == null){
-				response.sendRedirect("Login.jsp");
+				response.sendRedirect(com.constants.URLConstants.LOGIN_PAGE_URL);
 			}
 		// TODO Auto-generated method stub
-	int RM_Id = Integer.parseInt(request.getParameter("Rm_Id"));
-	int User_Id = Integer.parseInt(request.getParameter("user_id"));
-	EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
-	  EntityManager em=emf.createEntityManager();
-	  em.getTransaction().begin();
-	  Query query = em.createQuery("SELECT u "+"from Userslogin u "+"where u.user_Id = " +RM_Id+" AND u.isRm = "+1);
-		Userslogin userslogin = em.find(Userslogin.class, User_Id); 
+	int RM_Id = Integer.parseInt(request.getParameter(com.constants.UIConstants.RM_ID));
+	int User_Id = Integer.parseInt(request.getParameter(com.constants.UIConstants.USER_ID));
+	EntityManagerFactory entitymanagerfactory=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
+	  EntityManager entitymanager=entitymanagerfactory.createEntityManager();
+	  entitymanager.getTransaction().begin();
+	  Query query = entitymanager.createQuery(com.constants.QueryConstants.USERSLOGINSELECTQUERY +RM_Id+" AND u.isRm = "+1);
+		Userslogin userslogin = entitymanager.find(Userslogin.class, User_Id); 
 		List<Userslogin> userData = new ArrayList<>();
 		userData = query.getResultList();
-		em.getTransaction().commit();
+		entitymanager.getTransaction().commit();
 		for(Userslogin s: userData){
-			em.getTransaction().begin();
+			entitymanager.getTransaction().begin();
 			userslogin.setRmId(RM_Id);
-			em.getTransaction().commit();
+			entitymanager.getTransaction().commit();
 			
 		}
 		if(userslogin.getRmId() == RM_Id){
-		response.sendRedirect("SearchReportingManager.jsp");
+		response.sendRedirect(com.constants.URLConstants.SEARCH_REPORTING_MANAGER_URL);
 		}
 		else{
-		response.sendRedirect("UpdateReportingManager.jsp?edit=yes&fetch=yes&error='yes'");}
+		response.sendRedirect(com.constants.URLConstants.UPDATE_USER_FETCH_ERROR_URL);}
 		}
 		
 

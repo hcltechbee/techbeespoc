@@ -33,19 +33,19 @@ public class DeleteRMServlet extends HttpServlet {
     
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int user_id = Integer.parseInt(request.getParameter("id"));
-        EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
-          EntityManager em=emf.createEntityManager();
-          em.getTransaction().begin();
-            Userslogin userslogin = em.find(Userslogin.class, user_id);
+        int user_id = Integer.parseInt(request.getParameter(com.constants.UIConstants.SESSION_USER_ID));
+        EntityManagerFactory entitymanagerfactory=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
+          EntityManager entitymanager=entitymanagerfactory.createEntityManager();
+          entitymanager.getTransaction().begin();
+            Userslogin userslogin = entitymanager.find(Userslogin.class, user_id);
             userslogin.setRmId(0);
-            em.getTransaction().commit();
-            emf.close();
+            entitymanager.getTransaction().commit();
+            entitymanager.close();
             
 //        Connection con = UsersDataBase.getConnection();
 //        Statement stmt = con.createStatement();
 //        stmt.executeUpdate(com.constants.QueryConstants.DELETERMMAPQUERY + user_id);
-        response.sendRedirect("SearchReportingManager.jsp");
+        response.sendRedirect(com.constants.URLConstants.SEARCH_REPORTING_MANAGER_URL);
     }
 }
  

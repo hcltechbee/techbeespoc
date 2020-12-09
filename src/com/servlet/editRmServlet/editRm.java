@@ -27,18 +27,18 @@ public class editRm extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute(com.constants.UIConstants.SESSION_NAME) == null){
-			response.sendRedirect("Login.jsp");
+			response.sendRedirect(com.constants.URLConstants.LOGIN_PAGE_URL);
 		}
 		// TODO Auto-generated method stub
-		int Rm_Id = Integer.parseInt(request.getParameter("Rm_Id"));
-		int User_Id = Integer.parseInt(request.getParameter("user_id"));
-		EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
-		  EntityManager em=emf.createEntityManager();
-		  em.getTransaction().begin();
+		int Rm_Id = Integer.parseInt(request.getParameter(com.constants.UIConstants.RM_ID));
+		int User_Id = Integer.parseInt(request.getParameter(com.constants.UIConstants.USER_ID));
+		EntityManagerFactory entitymanagerfactory=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
+		  EntityManager entitymanager=entitymanagerfactory.createEntityManager();
+		  entitymanager.getTransaction().begin();
 		  Userslogin userslogin = new Userslogin();
-		  userslogin = em.find(Userslogin.class, User_Id);
+		  userslogin = entitymanager.find(Userslogin.class, User_Id);
 		  userslogin.setRmId(Rm_Id);
-			response.sendRedirect("SearchReportingManager.jsp");
+			response.sendRedirect(com.constants.URLConstants.SEARCH_REPORTING_MANAGER_URL);
 		
 	}
 

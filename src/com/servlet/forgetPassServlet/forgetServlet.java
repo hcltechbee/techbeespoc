@@ -24,10 +24,10 @@ import com.connection.Userslogin;
 public class forgetServlet extends HttpServlet {	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forget_mobile_number = request.getParameter(com.constants.UIConstants.FORGET_NUMBER);
-			EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+			EntityManagerFactory emf=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
 		      EntityManager em=emf.createEntityManager();
 		      em.getTransaction().begin();
-		      Query query = em.createQuery("SELECT u FROM Userdetail u WHERE u.mobileNumber = " + forget_mobile_number);
+		      Query query = em.createQuery(com.constants.QueryConstants.MOBILENUMBERCHECK + forget_mobile_number);
 		      List<Userdetail> dataList = query.getResultList();		      
 		      System.out.println(query);
 		      em.getTransaction().commit();
@@ -47,11 +47,11 @@ public class forgetServlet extends HttpServlet {
 		    	  response.sendRedirect(com.constants.URLConstants.LOGIN_EMAIL_URL+ Email);
 		    	  }		 
 		    	  else{
-		    		  response.sendRedirect("forgot.jsp?error=mobile_number_invalid");
+		    		  response.sendRedirect(com.constants.URLConstants.FORGOT_PAGE_ERROR_URL);
 		    	  }
 		      }
 		      else{
-		    	  response.sendRedirect("forgot.jsp?error=mobile_number_invalid");
+		    	  response.sendRedirect(com.constants.URLConstants.FORGOT_PAGE_ERROR_URL);
 		      }
 		
 	}

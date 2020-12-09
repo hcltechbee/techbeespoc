@@ -1,21 +1,15 @@
 package com.servlet.loginServlet;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,11 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.classes.users.UsersDataBase;
-import com.connection.Userdetail;
 import com.connection.Userslogin;
-import com.constants.QueryConstants;
-import com.servlet.users.Userfeed;
 
 
 
@@ -35,7 +25,8 @@ import com.servlet.users.Userfeed;
  * Servlet implementation class loginServlet
  */
 @WebServlet("/loginServlet")
-public class loginServlet extends HttpServlet {    
+public class loginServlet extends HttpServlet { 
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			String email = request.getParameter(com.constants.UIConstants.LOGIN_EMAIL);
@@ -50,20 +41,18 @@ public class loginServlet extends HttpServlet {
 			String userEmail="", userPassword="", userName="", lastName="", firstName="";
 			Userslogin user1=new Userslogin();
 			//Userdetail user_1 = new Userdetail();
-			  EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
-			  EntityManager em=emf.createEntityManager();
-			  Query query = em.createQuery("SELECT u FROM Userslogin u where u.emailId  = "+"\""+email+"\"");
+			  EntityManagerFactory entitymanagerfactory=Persistence.createEntityManagerFactory("InsertUsers"); 
+			  EntityManager entitymanager=entitymanagerfactory.createEntityManager();
+			  Query query = entitymanager.createQuery(com.constants.QueryConstants.EMAILIDCHECK+"'"+email+"'");
 			  
 			  login=query.getResultList();
-			  em.getTransaction().begin();
+			  entitymanager.getTransaction().begin();
 			  int isAdmin=0;
 			  int userId=1;
 			  
-			
-				System.out.println("hi");	 
+				 
 					 for( Userslogin s:login ){
 						  userEmail = s.getEmailId();
-						  System.out.println(userEmail);
 						  userPassword = s.getPassword();
 						
 							
@@ -72,12 +61,10 @@ public class loginServlet extends HttpServlet {
 								 isAdmin = s.getIsadmin();
 								lastName =s.getLastName();
 								 userId=s.getUser_Id();
-								 //System.out.println(""+userId);
 					 }
-					 System.out.println("hi 1");
-					 em.getTransaction().commit();   
+					 entitymanager.getTransaction().commit();   
 
-			          emf.close();   
+			          entitymanagerfactory.close();   
 				  
 			         
 			/*
@@ -164,7 +151,6 @@ response.sendRedirect("Login.jsp");
 			}
 			else{
 				success = "false";
-				System.out.println("sorry");
 				response.sendRedirect(com.constants.URLConstants.LOGIN_SUCCESS_URL + success);
 			}
 			}
@@ -172,8 +158,8 @@ response.sendRedirect("Login.jsp");
 				success="username_incorrect";
 				response.sendRedirect(com.constants.URLConstants.LOGIN_SUCCESS_URL + success);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			LOGGER.log(Level.WARNING, "EXCEPTION OCCURED  " + exception);
 		}
 		
 	}

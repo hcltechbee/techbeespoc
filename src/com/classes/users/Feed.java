@@ -1,6 +1,6 @@
 package com.classes.users;
 
-import com.mysql.jdbc.Blob;
+import java.sql.Blob;
 
 public class Feed {
 	 private String Feed_Text;

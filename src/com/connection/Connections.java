@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
  
 public class Connections extends HttpServlet{
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 /**
 	 * 
 	 */
@@ -34,7 +37,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
 
 	Userslogin user1=new Userslogin();
 	Userdetail user_1 = new Userdetail();
-	  EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
+	  EntityManagerFactory emf=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
 	  EntityManager em=emf.createEntityManager();
 	  em.getTransaction().begin();   
 	  System.out.println(user1.getUser_Id());
@@ -48,7 +51,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
 	 
 	  em.persist(user1);  
 	  em.getTransaction().commit();
-	  System.out.println(" records inserted in userlogin");  
+	  LOGGER.log(Level.INFO, "RECORDS INSERTED IN USERSLOGIN");
 	 // em.getTransaction().commit(); 
 	  
 

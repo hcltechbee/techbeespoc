@@ -3,7 +3,6 @@ package com.servlet.users;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.mysql.jdbc.Blob;
 
 import java.sql.Timestamp;
 
@@ -14,7 +13,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="userfeeds")
-@NamedQuery(name="Userfeed.findAll", query="SELECT u FROM Userfeed u")
+@NamedQuery(name="Userfeed.findAll", query=com.constants.QueryConstants.SELECTFEED)
 public class Userfeed implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

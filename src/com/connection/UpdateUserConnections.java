@@ -31,44 +31,41 @@ public class UpdateUserConnections extends HttpServlet{
 
 
 public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
-
-
-
-    EntityManagerFactory emf=Persistence.createEntityManagerFactory("InsertUsers"); 
-      EntityManager em=emf.createEntityManager();
-      em.getTransaction().begin();   
-      int id = Integer.parseInt(request.getParameter("id"));
-      Userslogin user1=em.find(Userslogin.class, id);
-      Userdetail user_1 = em.find(Userdetail.class, id);
-      String gender = request.getParameter("gender");
+    EntityManagerFactory entitymanagerfactory=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
+      EntityManager entitymanager=entitymanagerfactory.createEntityManager();
+      entitymanager.getTransaction().begin();   
+      int id = Integer.parseInt(request.getParameter(com.constants.UIConstants.SESSION_USER_ID));
+      Userslogin usersLogin=entitymanager.find(Userslogin.class, id);
+      Userdetail usersDetails = entitymanager.find(Userdetail.class, id);
+      String gender = request.getParameter(com.constants.UIConstants.GENDER);
       BigInteger mob = new BigInteger(request.getParameter(com.constants.UIConstants.MOBILENUMBER));
-      user1.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
-      user1.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
-      user1.setEmailId(request.getParameter(com.constants.UIConstants.EMAILID));
-      user_1.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
-      user_1.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
-      user_1.setMobileNumber(mob);
-      user_1.setGender(gender);
-      user_1.setGender(request.getParameter(com.constants.UIConstants.GENDER));
-      user_1.setAddress(request.getParameter(com.constants.UIConstants.ADDRESS));
-      user_1.setCity(request.getParameter(com.constants.UIConstants.CITY));
-      user_1.setPincode(request.getParameter(com.constants.UIConstants.PINCODE));
-      user_1.setState(request.getParameter(com.constants.UIConstants.STATE));
-      user1.setIsadmin((byte)1);
+      usersLogin.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
+      usersLogin.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
+      usersLogin.setEmailId(request.getParameter(com.constants.UIConstants.EMAILID));
+      usersDetails.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
+      usersDetails.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
+      usersDetails.setMobileNumber(mob);
+      usersDetails.setGender(gender);
+      usersDetails.setGender(request.getParameter(com.constants.UIConstants.GENDER));
+      usersDetails.setAddress(request.getParameter(com.constants.UIConstants.ADDRESS));
+      usersDetails.setCity(request.getParameter(com.constants.UIConstants.CITY));
+      usersDetails.setPincode(request.getParameter(com.constants.UIConstants.PINCODE));
+      usersDetails.setState(request.getParameter(com.constants.UIConstants.STATE));
+      usersLogin.setIsadmin((byte)1);
       
       
-      em.persist(user1);     
-      em.persist(user_1);
-      em.getTransaction().commit();
+      entitymanager.persist(usersLogin);     
+      entitymanager.persist(usersDetails);
+      entitymanager.getTransaction().commit();
 
  
 
-      response.sendRedirect("Login.jsp");  
+      response.sendRedirect(com.constants.URLConstants.LOGIN_PAGE_URL);  
     
 
  
 
-    emf.close();   
+    entitymanagerfactory.close();   
 /*
     
     response.setContentType("text/html");	

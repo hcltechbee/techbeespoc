@@ -23,6 +23,7 @@ public class UIConstants {
 	public static final String GNEDER = "gender";
 	public static final String MESSAGEBYUSERS = "messageByUser";
 	public static final String IMAGE = "image";
+	public static final String INDIA = "India";
 	
 	//entity name
 	

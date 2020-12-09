@@ -1,7 +1,6 @@
 package com.connection;
 import java.io.IOException;
 import java.math.BigInteger;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,22 +34,20 @@ public class Connections extends HttpServlet{
 
 public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
-	Userslogin user1=new Userslogin();
-	Userdetail user_1 = new Userdetail();
-	  EntityManagerFactory emf=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
-	  EntityManager em=emf.createEntityManager();
-	  em.getTransaction().begin();   
-	  System.out.println(user1.getUser_Id());
-	  user1.setUser_Id(1000);
-	  System.out.println(user1.getUser_Id());
-	  user1.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
-	  user1.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
-	  user1.setEmailId(request.getParameter(com.constants.UIConstants.EMAILID));
-	  user1.setIsadmin((byte)1);
-	  user1.setPassword(request.getParameter(com.constants.UIConstants.PWD));
+	Userslogin usersLogin=new Userslogin();
+	Userdetail userDetails = new Userdetail();
+	  EntityManagerFactory entitymanagerfactory=Persistence.createEntityManagerFactory(com.constants.UIConstants.ENTITY_NAME); 
+	  EntityManager entitymanager=entitymanagerfactory.createEntityManager();
+	  entitymanager.getTransaction().begin();   
+	  usersLogin.setUser_Id(1000);
+	  usersLogin.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
+	  usersLogin.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
+	  usersLogin.setEmailId(request.getParameter(com.constants.UIConstants.EMAILID));
+	  usersLogin.setIsadmin((byte)1);
+	  usersLogin.setPassword(request.getParameter(com.constants.UIConstants.PWD));
 	 
-	  em.persist(user1);  
-	  em.getTransaction().commit();
+	  entitymanager.persist(usersLogin);  
+	  entitymanager.getTransaction().commit();
 	  LOGGER.log(Level.INFO, "RECORDS INSERTED IN USERSLOGIN");
 	 // em.getTransaction().commit(); 
 	  
@@ -58,42 +55,36 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
 	 
 	  
 	 
-	 EntityManager em1=emf.createEntityManager();
+	 EntityManager em1=entitymanagerfactory.createEntityManager();
 	 em1.getTransaction().begin();
-	 System.out.println(user_1.getUserId());
-	 user_1.setUserId(1000);;
-	 System.out.println(user_1.getUserId());
+	 System.out.println(userDetails.getUserId());
+	 userDetails.setUserId(1000);;
+	 System.out.println(userDetails.getUserId());
 	 
 	  BigInteger mob;
 	  mob = new BigInteger(request.getParameter(com.constants.UIConstants.MOBILENUMBER));
-	  user_1.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
-	  user_1.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
-	  user_1.setMobileNumber(mob);
-	  System.out.println("hi 1 ");
-user_1.setGender(request.getParameter(com.constants.UIConstants.GENDER));
-user_1.setAddress(request.getParameter(com.constants.UIConstants.ADDRESS));
-user_1.setCity(request.getParameter(com.constants.UIConstants.CITY));
-user_1.setPincode(request.getParameter(com.constants.UIConstants.PINCODE));
-user_1.setState(request.getParameter(com.constants.UIConstants.STATE));
-user_1.setCountry("India");
-System.out.println("hi 2 ");
+	  userDetails.setFirstName(request.getParameter(com.constants.UIConstants.FIRSTNAME));
+	  userDetails.setLastName(request.getParameter(com.constants.UIConstants.LASTNAME));
+	  userDetails.setMobileNumber(mob);
+userDetails.setGender(request.getParameter(com.constants.UIConstants.GENDER));
+userDetails.setAddress(request.getParameter(com.constants.UIConstants.ADDRESS));
+userDetails.setCity(request.getParameter(com.constants.UIConstants.CITY));
+userDetails.setPincode(request.getParameter(com.constants.UIConstants.PINCODE));
+userDetails.setState(request.getParameter(com.constants.UIConstants.STATE));
+userDetails.setCountry(com.constants.UIConstants.INDIA);
 Date date1;
 try {
 	date1 = new SimpleDateFormat("yyyy-mm-dd").parse(request.getParameter(com.constants.UIConstants.DATEOFBIRTH));
 	//Date sqldate = new Date(date1.getTime());
-	user_1.setDateOfBirth(date1);
+	userDetails.setDateOfBirth(date1);
 } catch (ParseException e) {
-	// TODO Auto-generated catch block
 	e.printStackTrace();
 } 
-System.out.println("hi 3");
-em1.persist(user_1);  
-System.out.println("hi 4 ");
+em1.persist(userDetails);  
 em1.getTransaction().commit(); 
-System.out.println(" records inserted in userdetails"); 
-response.sendRedirect("Login.jsp"); 
+response.sendRedirect(com.constants.URLConstants.LOGIN_PAGE_URL); 
 
-      emf.close();
+      entitymanagerfactory.close();
      
 
      
@@ -135,8 +126,7 @@ try{
     Class.forName(com.constants.URLConstants.DATABASEDRIVER);  
     Connection connection=DriverManager.getConnection(com.constants.URLConstants.DATABASEURL,com.constants.URLConstants.DATABASEUSERNAME,com.constants.URLConstants.DATABASEPASSWORD);
     PreparedStatement stmt1=connection.prepareStatement(query2); 
-    int j=stmt1.executeUpdate();  
-    System.out.println(j+" records inserted in userlogin");    
+    int j=stmt1.executeUpdate();    
     PreparedStatement stmt=connection.prepareStatement(query);   
     int i=stmt.executeUpdate();  
     System.out.println(i+" records inserted in userdetails");  
